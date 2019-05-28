@@ -1,5 +1,6 @@
 package customException;
 
+
 @SuppressWarnings("serial")
 public class NotFoundException extends Exception{
 
@@ -14,21 +15,24 @@ public class NotFoundException extends Exception{
 	 * This attribute is for know the type of exception
 	 */
 	private String typeOfOut;
+	
 	/*
-	 * This attribute is change the super of the exception
-	 * 
+	 * this is the builder of the NotFoundException class
 	 */
 	public NotFoundException() {
 		super("The Product is not in the List");
 	
 		customMessage = "The size is "+typeOfOut;
 	}
-	
+	/*
+	 * This attribute is change the super of the exception
+	 * 
+	 */
+
 	@Override
-	public String getMessage() {
+	public String getMessage(){
 		String msg;
 		msg = super.getMessage() + customMessage;
 		return msg;
 	}
-
 }

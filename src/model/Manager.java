@@ -1,66 +1,121 @@
 package model;
 
+import customException.IncorrectPassWordException;
+
 public class Manager {
-	
-	//Associations
-		public Market manager;
-	
-	//Attributes
-		private String name;
-		private int id;
-		private String password;
-		private String address;
-	
-	//Methods
-		//Builder
-			public Manager(String name, int id, String password, String address, Market manager) {
-				this.name = name;
-				this.id = id;
-				this.password = password;
-				this.address = address;
-				this.manager = manager;
-			}
-		//Getters
-			public Market getManager() {
-				return manager;
-			}
-	
-			public String getName() {
-				return name;
-			}
-	
-			public int getId() {
-				return id;
-			}
-	
-			public String getPassword() {
-				return password;
-			}
-	
-			public String getAddress() {
-				return address;
-			}
+			
+		//Attributes
+			/*
+	 		* this attribute contains the name of the manager
+	 		*/
+			private String name;
+			/*
+	 		* this attribute contains the id of the manager
+	 		*/
+			private int id;
+			/*
+	 		* this attribute contains the password of the manager
+	 		*/
+			private String password;
+			/*
+	 		* this attribute contains the address of the manager
+	 		*/
+			private String address;
+		
+		//Methods
+			//Builder
+				/*
+				*This is the constructor of the Manager class
+				*@param the name of the costumer. name != null
+				*@param the code of the costumer. id != null
+				*@param the password of the costumer. password!= null
+				*@param the address of the costumer. address != null
+				*/
+				public Manager(String name, int id, String password, String address) {
+					this.name = name;
+					this.id = id;
+					this.password = password;
+					this.address = address;
+					
+				}
+			//Getters
+				/*
+				 * this method allows get the manager name 
+				 */
+				public String getName() {
+					return name;
+				}
+				/*
+				 * this method allows get the manager id 
+				 */
+				public int getId() {
+					return id;
+				}
+				/*
+				 * this method allows get the manager password 
+				 */
+				public String getPassword() {
+					return password;
+				}
+				/*
+				 * this method allows get the manager address 
+				 */
+				public String getAddress() {
+					return address;
+				}
+					
 				
-			
-		//Setters
-			public void setManager(Market manager) {
-				this.manager = manager;
-			}
-			
-			public void setName(String name) {
-				this.name = name;
-			}
-			
-			public void setId(int id) {
-				this.id = id;
-			}
-			
-			public void setPassword(String password) {
-				this.password = password;
-			}
-			
-			public void setAddress(String address) {
-				this.address = address;
-			}
+			//Setters
+				/*
+				 * this method allows change the name of the manager
+				 */
+				public void setName(String name) {
+					this.name = name;
+				}
+				/*
+				 * this method allows change the id of the manager
+				 */
+				public void setId(int id) {
+					this.id = id;
+				}
+				/*
+				 * this method allows change the password of the manager
+				 */
+				public void setPassword(String password) {
+					this.password = password;
+				}
+				/*
+				 * this method allows change the address of the manager
+				 */
+				public void setAddress(String address) {
+					this.address = address;
+				}
+			//operational
+				/*
+				 * this method return a boolean if the password is the same at the String in the param
+				 * @param the posible password. posiblePassWord != null
+				 */
+				public boolean passWordCheck() throws IncorrectPassWordException{
+					boolean flag = false;
+					if(password.equals(password)) {
+						flag = true;
+					}else {
+						throw new IncorrectPassWordException(this);
+					}
+					return  flag;
+				}
+				
+				public boolean check(String password) throws IncorrectPassWordException {
+					boolean flag = false;
+					for(int i = 0; i<password.length();i++ ) {
+						if(Character.isDigit(password.charAt(i))) {
+							flag = true;
+						}
+					}
+					if(flag == false) {
+						throw new IncorrectPassWordException(this);
+					}
+					return flag;
+				}
 
 }
