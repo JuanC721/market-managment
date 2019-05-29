@@ -14,49 +14,49 @@ public class Distributor{
 	
 			
 	//Associations
-			/*
-			 * this attribute contains next Distributor in the liked list
-			 */
+			/**
+			 ** this attribute contains next Distributor in the liked list
+			 **/
 			private Distributor next;
-			/*
-			 * this attribute contains previous Distributor in the liked list
-			 */
+			/**
+			 ** this attribute contains previous Distributor in the liked list
+			 **/
 			private Distributor previous;
-			/*
-			 * this attribute contains root of the binary search tree type Producto of the Distributor class
-			 */
+			/**
+			 ** this attribute contains root of the binary search tree type Producto of the Distributor class
+			 **/
 			private Product root;
 		
 		//Attributes
-			/*
-			 * this attribute contains the name of the distributor 
-			 */
+			/**
+			 ** this attribute contains the name of the distributor 
+			 **/
 			private String companyName;
-			/*
-			 * this attribute contains the code of the distributor 
-			 */
+			/**
+			 ** this attribute contains the code of the distributor 
+			 **/
 			private String code;
-			/*
-			 * this attribute contains the name of the manager in the distributor company 
-			 */
+			/**
+			 ** this attribute contains the name of the manager in the distributor company 
+			 **/
 			private String distributorManagerName;
-			/*
-			 * this attribute contains the phone of the distributor 
-			 */
+			/**
+			 ** this attribute contains the phone of the distributor 
+			 **/
 			private String distributorPhone;
-			/*
-			 * this attribute contains all the products of the distributor company
-			 */
+			/**
+			 ** this attribute contains all the products of the distributor company
+			 **/
 			private ArrayList<Product> productsToShow;
 		//Methods
 			//Builder
-			/*
-			*This is the constructor of the Distributor class
-			*@param the name of the distributor company. companyName != null
-			*@param the code of the company. code != null
-			*@param the name of the manager in the distributor company. distributorManagerName != null
-			*@param the phone of the distributor company. distributorPhone != null
-			*/
+			/**
+			**This is the constructor of the Distributor class
+			**@param the name of the distributor company. companyName != null
+			**@param the code of the company. code != null
+			**@param the name of the manager in the distributor company. distributorManagerName != null
+			**@param the phone of the distributor company. distributorPhone != null
+			**/
 				public Distributor(String companyName, String code, String distributorManagerName, String distributorPhone) {
 					this.companyName = companyName;
 					this.code = code;
@@ -65,51 +65,51 @@ public class Distributor{
 				}
 			
 			//Getters
-				/*
-				 * this method allows get the next object type Distributor from the linked list
-				 */
+				/**
+				 ** this method allows get the next object type Distributor from the linked list
+				 **/
 				public Distributor getNext() {
 					return next;
 				}
-				/*
-				 * this method allows get the previous object type Distributor from the linked list
-				 */
+				/**
+				 ** this method allows get the previous object type Distributor from the linked list
+				 **/
 				public Distributor getPrevious() {
 					return previous;
 				}
-				/*
-				 * this method allows get the root object type Product from binary search tree type Product
-				 */
+				/**
+				 ** this method allows get the root object type Product from binary search tree type Product
+				 **/
 				public Product getRoot() {
 					return root;
 				}
-				/*
-				 * this method allows get the company name 
-				 */
+				/**
+				 ** this method allows get the company name 
+				 **/
 				public String getCompanyName() {
 					return companyName;
 				}
-				/*
-				 * this method allows get the company code 
-				 */
+				/**
+				 ** this method allows get the company code 
+				 **/
 				public String getCode() {
 					return code;
 				}
-				/*
-				 * this method allows get the company manager name 
-				 */
+				/**
+				 ** this method allows get the company manager name 
+				 **/
 				public String getDistributorManagerName() {
 					return distributorManagerName;
 				}
-				/*
-				 * this method allows get the company phone 
-				 */
+				/**
+				 ** this method allows get the company phone 
+				 **/
 				public String getDistributorPhone() {
 					return distributorPhone;
 				}
-				/*
-				 * this method allows get the company products 
-				 */
+				/**
+				 ** this method allows get the company products 
+				 **/
 				public ArrayList<Product> getProductsToShow() {
 					return productsToShow;
 				}
@@ -117,45 +117,45 @@ public class Distributor{
 				
 
 			//Setters
-				/*
-				 * this method allows change the relation with the next object type Distributor of the linked list type Distributor
-				 */
+				/**
+				 ** this method allows change the relation with the next object type Distributor of the linked list type Distributor
+				 **/
 				public void setNext(Distributor next) {
 					this.next = next;
 				}
-				/*
-				 * this method allows change the relation with the previous object type Distributor of the linked list type Distributor
-				 */
+				/**
+				 ** this method allows change the relation with the previous object type Distributor of the linked list type Distributor
+				 **/
 				public void setPrevious(Distributor previous) {
 					this.previous = previous;
 				}
-				/*
-				 * this method allows change the root of the binary search tree type Product
-				 */
+				/**
+				 ** this method allows change the root of the binary search tree type Product
+				 **/
 				public void setRoot(Product root) {
 					this.root = root;
 				}
-				/*
-				 * this method allows change the name of the company
-				 */
+				/**
+				 ** this method allows change the name of the company
+				 **/
 				public void setCompanyName(String companyName) {
 					this.companyName = companyName;
 				}
-				/*
-				 * this method allows change the code of the company
-				 */
+				/**
+				 ** this method allows change the code of the company
+				 **/
 				public void setCode(String code) {
 					this.code = code;
 				}
-				/*
-				 * this method allows change the manager name of the company
-				 */
+				/**
+				 ** this method allows change the manager name of the company
+				 **/
 				public void setDistributorManagerName(String distributorManagerName) {
 					this.distributorManagerName = distributorManagerName;
 				}
-				/*
-				 * this method allows change the phone of the company
-				 */
+				/**
+				 ** this method allows change the phone of the company
+				 **/
 				public void setDistributorPhone(String distributorPhone) {
 					this.distributorPhone = distributorPhone;
 				}
@@ -165,11 +165,11 @@ public class Distributor{
 
 			//método find
 				//TODO crear aqui la exception de no encontrado
-				/*
-				 * this method find a product by name 
-				 * @param the name of the product search. name != null
-				 * @return a int with the position of the object
-				 */
+				/**
+				 ** this method find a product by name 
+				 ** @param the name of the product search. name != null
+				 ** @return a int with the position of the object
+				 **/
 				public int searchingByName(String name) throws NotFoundException {
 					int posFind = -1;
 					boolean found = false;
@@ -183,13 +183,13 @@ public class Distributor{
 					}
 					return posFind;
 				}
-				/*
-				 * this method find a product by code 
-				 * @param the name of the product search. code != null
-				 * @return a int with the position of the object
-				 */
+				/**
+				 ** this method find a product by code 
+				 ** @param the name of the product search. code != null
+				 ** @return a int with the position of the object
+				 **/
 	
-				public int searchingByCode(int code) throws NotFoundException  {
+				public int searchingByCode(int code) throws NotFoundException{
 					int posFind = -1;
 					boolean found = false;
 					for(int i = 0; i<productsToShow.size() && !found; i++) {
@@ -202,11 +202,10 @@ public class Distributor{
 					}
 					return posFind;
 				}
-				//métodos
-				/*
-				 * this method sort by name the list of products
-				 * <b>post:</b>the list of products was sorted by name </br>  
-				 */
+				/**
+				 ** this method sort by name the list of products
+				 ** <b>post:</b>the list of products was sorted by name </br>  
+				 **/
 				public void sortProductByName() {
 					//TODO puede que el método falle
 					productsToShow = (ArrayList<Product>) preorder();
@@ -221,10 +220,10 @@ public class Distributor{
 						}
 					}
 				}
-				/*
-				 * this method sort by price the list of products
-				 * <b>post:</b>the list of products was sorted by price </br>  
-				 */
+				/**
+				 ** this method sort by price the list of products
+				 ** <b>post:</b>the list of products was sorted by price </br>  
+				 **/
 				public void sortProductByPrice() {
 					productsToShow = (ArrayList<Product>) preorder();
 					int n = productsToShow.size();
@@ -238,10 +237,10 @@ public class Distributor{
 						}
 					}	
 				}
-				/*
-				 * this method sort by quantity the list of products
-				 * <b>post:</b>the list of products was sorted by quantity </br>  
-				 */
+				/**
+				 ** this method sort by quantity the list of products
+				 ** <b>post:</b>the list of products was sorted by quantity </br>  
+				 **/
 				public void sortProductByQuantity() {
 					productsToShow = (ArrayList<Product>) preorder(); 
 					for (int I = 0; I < productsToShow.size()-1; I++) {
@@ -260,10 +259,10 @@ public class Distributor{
 						productsToShow.set(I, temp);
 					}
 				}
-				/*
-				 * this method sort by code the list of products
-				 * <b>post:</b>the list of products was sorted by code </br>  
-				 */
+				/**
+				 ** this method sort by code the list of products
+				 ** <b>post:</b>the list of products was sorted by code </br>  
+				 **/
 				public void sortProductByCode() {
 					productsToShow = (ArrayList<Product>) preorder(); 
 					Product temp;
@@ -278,18 +277,18 @@ public class Distributor{
 					}
 				}
 
-				/*
-				 * this method return a list with all the elements of the binary search tree
-				 * @return a list with all the object type Product of the binary search tree
-				 */
+				/**
+				 ** this method return a list with all the elements of the binary search tree
+				 ** @return a list with all the object type Product of the binary search tree
+				 **/
 				public List<Product> preorder(){
 					return preorder(root);  
 				}
-				/*
-				 * this recursive method return one list type Product
-				 * @param the current object Product of the binary search tree. current  != null
-				 * @return a return a list with all the object type Product of the binary search tree 
-				 */
+				/**
+				 ** this recursive method return one list type Product
+				 ** @param the current object Product of the binary search tree. current  != null
+				 ** @return a return a list with all the object type Product of the binary search tree 
+				 **/
 				private List<Product> preorder(Product current){
 					List<Product> lis= new ArrayList<Product>();
 					if(current != null) {
@@ -301,23 +300,23 @@ public class Distributor{
 					}
 					return lis;
 				}
-				/*
-				 * this method allows add a new object type Product in the binary search tree of products
-				 * @param a object type Product. newOne != null
-				 * <b>post:</b> a new object type Product was add in the binary search tree
-				 */
+				/**
+				 ** this method allows add a new object type Product in the binary search tree of products
+				 ** @param a object type Product. newOne != null
+				 ** <b>post:</b> a new object type Product was add in the binary search tree
+				 **/
 				public void addProduct(Product newOne) {
 					if(root == null) {
 						root = newOne;
 					}else{
 						addProduct(root,newOne);
 					}
-				}/*
-				 * this recursive method allows add a new object type Product in the binary search tree of products sorting by name
-				 * @param the current object type Product of the binary search tree. current != null
-				 * @param a object type Product. newOne != null
-				 * <b>post:</b> a new object type Product was add in the binary search tree
-				 */
+				}/**
+				 ** this recursive method allows add a new object type Product in the binary search tree of products sorting by name
+				 ** @param the current object type Product of the binary search tree. current != null
+				 ** @param a object type Product. newOne != null
+				 ** <b>post:</b> a new object type Product was add in the binary search tree
+				 **/
 				private void addProduct(Product current, Product newOne) {
 					if(current.compareTo(newOne) <= 0){
 						if(current.getLeft() == null){
@@ -333,9 +332,9 @@ public class Distributor{
 						}
 					}
 				}
-				/*
-				 * 
-				 */
+				/**
+				 ** 
+				 **/
 				public void generateProducts(String path, String step)  throws IOException{
 					File file = new File(path);
 					FileReader fileReader = new FileReader(file);

@@ -6,19 +6,20 @@ import model.Manager;
 public class IncorrectPassWordException extends Exception{
 	public final static String INCORRECT_PASSWORD= "INCORRECT_PASSWORD";
 	public final static String WRONG_FORMAT= "WRONG_FORMAT";
-	/*
-	 * This attribute contains the custom message of the custom exception
-	 */
+	/**
+	 ** This attribute contains the custom message of the custom exception
+	 **/
 	private String customMessage;
-	/*
-	 * This attribute is for know the type of exception
-	 */
+	/**
+	 ** This attribute is for know the type of exception
+	 **/
 	private String typeOfOut;
-	/*
-	 * the builder of the DistributorException class
-	 * 
-	 */
-	public IncorrectPassWordException(Manager manager) {
+	/**
+	 ** the builder of the DistributorException class
+	 * @throws IncorrectPassWordException 
+	 ** 
+	 **/
+	public IncorrectPassWordException(Manager manager) throws IncorrectPassWordException {
 		super("the passWord is incorrect");
 		boolean flag = manager.passWordCheck();
 		if(flag == false){
@@ -28,10 +29,10 @@ public class IncorrectPassWordException extends Exception{
 		}
 	}
 	
-	/*
-	 * This attribute is change the super of the exception
-	 * 
-	 */
+	/**
+	 ** This attribute is change the super of the exception
+	 ** 
+	 **/
 	@Override
 	public String getMessage() {
 		String msg;
