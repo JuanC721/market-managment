@@ -62,6 +62,8 @@ public class Distributor{
 					this.code = code;
 					this.distributorManagerName = distributorManagerName;
 					this.distributorPhone = distributorPhone;
+					this.productsToShow = new ArrayList<Product>();
+					fill();
 				}
 			
 			//Getters
@@ -284,6 +286,7 @@ public class Distributor{
 				public List<Product> preorder(){
 					return preorder(root);  
 				}
+				 
 				/**
 				 ** this recursive method return one list type Product
 				 ** @param the current object Product of the binary search tree. current  != null
@@ -291,7 +294,9 @@ public class Distributor{
 				 **/
 				private List<Product> preorder(Product current){
 					List<Product> lis= new ArrayList<Product>();
-					if(current != null) {
+					if(current != null){
+//						System.out.println("off");
+						
 						lis.add(current);
 						List<Product> lis2 = preorder(current.getLeft());
 						List<Product> lis3 = preorder(current.getRight());
@@ -300,41 +305,51 @@ public class Distributor{
 					}
 					return lis;
 				}
+			   
+			
+
+			    
 				/**
 				 ** this method allows add a new object type Product in the binary search tree of products
 				 ** @param a object type Product. newOne != null
 				 ** <b>post:</b> a new object type Product was add in the binary search tree
 				 **/
 				public void addProduct(Product newOne) {
-					if(root == null) {
+					addProduct(newOne, root);
+				}
+				
+				/**
+				 * this recursive method allows add a new object type Product in the binary search tree of products sorting by name
+				 * @param the current object type Product of the binary search tree. current != null
+				 * @param a object type Product. newOne != null
+				 * <b>post:</b> a new object type Product was add in the binary search tree
+				 */
+				public void addProduct(Product newOne, Product current) {
+					if(root == null){
 						root = newOne;
-					}else{
-						addProduct(root,newOne);
 					}
-				}/**
-				 ** this recursive method allows add a new object type Product in the binary search tree of products sorting by name
-				 ** @param the current object type Product of the binary search tree. current != null
-				 ** @param a object type Product. newOne != null
-				 ** <b>post:</b> a new object type Product was add in the binary search tree
-				 **/
-				private void addProduct(Product current, Product newOne) {
-					if(current.compareTo(newOne) <= 0){
-						if(current.getLeft() == null){
-							current.setLeft(newOne);
+					else {
+//						System.out.println(current.getCode());
+						if(newOne.compareTo(current) <= 0) {
+							if(current.getLeft() == null) {
+								current.setLeft(newOne);
+							}else{
+								
+								addProduct(newOne, current.getLeft());
+							}
 						}else{
-							addProduct(current.getLeft(), newOne);
+							if(current.getRight() == null) {
+								current.setRight(newOne);
+							} else {
+								addProduct(newOne, current.getRight());
+							}
 						}
-					}else{
-						if(current.getRight() == null) {
-							current.setRight(newOne);
-						}else{
-							addProduct(current.getRight(),newOne);
-						}
+						
 					}
 				}
 				/**
-				 ** 
-				 **/
+				 *this method generate products from a txt
+				 */
 				public void generateProducts(String path, String step)  throws IOException{
 					File file = new File(path);
 					FileReader fileReader = new FileReader(file);
@@ -354,7 +369,11 @@ public class Distributor{
 					fileReader.close();
 					br.close();		
 				}
-				
+				/**
+				 * this method verify a correct category
+				 * @param categoryToCheck is a String with the name of one value of the enum Category. categoryToCheck!=null
+				 * @return a value
+				 */
 				public Category verifyValidCategory(String categoryToCheck) {
 					Category c = null;
 					for(Category cgy : Category.values()) {
@@ -364,7 +383,15 @@ public class Distributor{
 					}
 					return c;
 				}
-				
+				/**
+				 *this method allows fill the arrayList of productsToShow contained in the binary search tree
+				 */
+				public void fill() {
+					List<Product> ñ = preorder();
+					for(int i = 0; i<ñ.size();i++){
+						productsToShow.add(i,ñ.get(i));
+					}
+				}
 				
 				
 }
