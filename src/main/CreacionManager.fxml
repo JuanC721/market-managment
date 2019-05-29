@@ -45,7 +45,7 @@
                   </GridPane>
                </children>
             </AnchorPane>
-            <Button mnemonicParsing="false" onAction="#createManager" text="Crear" />
+            <Button fx:id="btnCrearManager" mnemonicParsing="false" onAction="#createManager" text="Crear" />
          </children>
       </VBox>
    </children>
