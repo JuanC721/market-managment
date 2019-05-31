@@ -1,4 +1,4 @@
-package modelTest;
+package testModel;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,12 +9,9 @@ import org.junit.jupiter.api.Test;
 import customException.NotFoundException;
 import model.Category;
 import model.Distributor;
-import model.Manager;
-import model.Market;
 import model.Product;
 
 class DistributorTest {
-
 	private Distributor distributorTest;
 	public void setupScenary2() {
 		Distributor distributor1 = new Distributor("ejemploCompany","A0001","Alejo","3154567892");
@@ -128,5 +125,4 @@ class DistributorTest {
 			assertTrue(true, "catch");
 		}
 	}
-
 }

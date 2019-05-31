@@ -1,13 +1,14 @@
-package modelTest;
+package testModel;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
 import customException.NotFoundException;
+import model.Bill;
 import model.Category;
 import model.Distributor;
 import model.Manager;
@@ -15,7 +16,6 @@ import model.Market;
 import model.Product;
 
 class MarketTest {
-
 	private Market marketTest;
 	public void setupScenary1() {
 		Manager manager = new Manager("juanito",1234,"juanitoElGigante@hotmail.com","trolazo111");
@@ -24,7 +24,7 @@ class MarketTest {
 		Distributor distributor2 = new Distributor("ejemploCompany2", "A0002", "Jairo", "3189020938");
 		Product m = new Product(Category.Frutas, "M", "element M", 30, 1200, 10);
 		Product a = new Product(Category.PatatasYLegumbres, "A", "element A", 10, 500, 20);
-		Product z = new Product(Category.Harinas, "M", "element M", 30, 1200, 10);
+		Product z = new Product(Category.Harinas, "M", "element M", 50, 1200, 10);
 		Product d = new Product(Category.Endulzantes, "D", "element D", 40, 10000, 15);
 		Product o = new Product(Category.HierbasAromaticas,"O","element O",27,3000,9);
 		distributor1.addProduct(m);
@@ -101,7 +101,7 @@ class MarketTest {
 		marketTest.actualInventory();
 		marketTest.sortProductByCode();
 		ArrayList<Product> inventory = marketTest.getInventory();
-		int[] codes = {1,5,7,10,27,30,30,40};
+		int[] codes = {1,5,7,10,27,30,40,50};
 		assertEquals(codes[0], inventory.get(0).getCode(),"ordered");
 		assertEquals(codes[1], inventory.get(1).getCode(),"ordered");
 		assertEquals(codes[2], inventory.get(2).getCode(),"ordered");
@@ -156,4 +156,36 @@ class MarketTest {
 			assertTrue(true, "catch");
 		}
 	}
+	@Test
+	void getMoreProductTest() throws NotFoundException {
+		setupScenary1();
+		marketTest.actualInventory();
+		Distributor x = new Distributor("companyExample2", "A0002", "managerexample", "3172893021");
+		ArrayList<Product> inventory = marketTest.getInventory();
+		marketTest.getMoreProducts(x, 1, 2);
+		marketTest.actualInventory();
+		int find = marketTest.searchingByCode(1);
+		assertEquals(6,inventory.get(find).getQuantity(),"i");
+		marketTest.getMoreProducts(x, 7, 4);
+		marketTest.actualInventory();
+		int find2 = marketTest.searchingByCode(7);
+		assertEquals(7,inventory.get(find2).getQuantity(),"i");
+	}
+	@Test
+	void refreshInventoryAfterASale() throws NotFoundException {
+		setupScenary1();
+		marketTest.actualInventory();
+		Date f = new Date();
+		Product code30 = new Product(Category.Frutas,"M", " ", 30, 1200, 1);
+		Product code30two = new Product(Category.Frutas,"M", " ", 30, 1200, 1);
+		Bill sale = new Bill(f,f.getHours(),f.getMinutes());
+		sale.getProductsBought().add(code30);
+		sale.getProductsBought().add(code30two);
+		sale.totalCost();
+		marketTest.refreshInventoryAfterASale(sale);
+		int lol = marketTest.searchingByCode(30);
+		Product lop = marketTest.getInventory().get(lol);
+		assertEquals(8, lop.getQuantity());
+	}
+
 }

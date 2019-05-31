@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import customException.NotFoundException;
 
@@ -86,73 +85,85 @@ public class Market implements Serializable{
 			//Getters
 				/**
 				 * this method allows get the relation manager From the class market
+				 * @return the attribute manager of the class
 				 */
 				public Manager getManager() {
 					return manager;
 				}
 				/**
 				 * this method allows get the relation with the Distributor class from the class market, and that is the first element of the linked list of distributors
+				 * @return the first element of the liked list type Distributor
 				 */
 				public Distributor getFirstDistributor() {
 					return firstDistributor;
 				}
 				/**
 				 * this method allows get the relation with the Costumer class from the class market, and that is the first element of the linked list of Costumer
+				 * @return
 				 */
 				public Costumer getFirstCostumer() {
 					return firstCostumer;
 				}
 				/**
 				 * this method allows get this method allows get the relation with the Bill class from the class market, and that is the root element of the binary search tree of Bill
+				 * @return
 				 */
 				public Bill getBillsRoot() {
 					return billsRoot;
 				}
 				/**
 				 * this method allows get the name of the company
+				 * @return the attribute marketName of the class
 				 */
 				public String getMarketName() {
 					return MarketName;
 				}
 				/**
 				 * this method allows get the nit of the company
+				 * @return the attribute nit of the class
 				 */
 				public int getNit() {
 					return nit;
 				}
 				/**
 				 * this method allows get the phone of the company
+				 * @return the attribute phone of the class
 				 */
 				public int getPhone() {
 					return phone;
 				}
 				/**
 				 * this method allows get the address of the company
+				 * @return the attribute addres of the class
 				 */
 				public String getAddres() {
 					return addres;
 				}
 				/**
 				 * this method allows get the email address of the company
+				 * @return the attribute emailAddress of the class
 				 */
 				public String getemailAddress() {
 					return emailAddress;
 				}
 				/**
-				 * this method allows get the email address of the company
+				 * this method allows get the inventory arraList type  Product of the company 
+				 * @return the attribute inventory of the class
 				 */
 				public ArrayList<Product> getInventory() {
 					return inventory;
 				}
 			//Setters
 				/**
-				 * this method allows change the relation with the class Manager
+				 * this method allow change the Manager relation of the class
+				 * @param manager != null
 				 */
 				public void setManager(Manager manager) {
 					this.manager = manager;
 				}
 				/**
 				 * this method allows change the first element of the Distributor linked list
+				 * @param firstDistributor != null
 				 */
 				public void setFirstDistributor(Distributor firstDistributor) {
 					this.firstDistributor = firstDistributor;
@@ -165,42 +176,49 @@ public class Market implements Serializable{
 				}
 				/**
 				 * this method allows change the root element of the binary search tree with objects type bill
+				 * @param billsRoot != null
 				 */
 				public void setBillsRoot(Bill billsRoot) {
 					this.billsRoot = billsRoot;
 				}
 				/**
 				 * this method allows change the name of the company
+				 * @param MarketName != null;
 				 */
 				public void setMarketName(String MarketName) {
 					this.MarketName = MarketName;
 				}
 				/**
 				 * this method allows change the nit of the company
+				 * @param nit != null.
 				 */
 				public void setNit(int nit) {
 					this.nit = nit;
 				}
 				/**
 				 * this method allows change the phone of the company
+				 * @param phone != null.
 				 */
 				public void setPhone(int phone) {
 					this.phone = phone;
 				}
 				/**
 				 * this method allows change the address of the company
+				 * @param addres != null.
 				 */
 				public void setAddres(String addres) {
 					this.addres = addres;
 				}
 				/**
 				 * this method allows change the email address of the company
+				 * @param emailAddress != null.
 				 */
 				public void setEmailAddress(String emailAddress) {
 					this.emailAddress = emailAddress;
 				}
 				/**
 				 * this method allows change the email of the company
+				 * @param inventory != null.
 				 */
 				public void setInventory(ArrayList<Product> inventory) {
 					this.inventory = inventory;
@@ -467,36 +485,39 @@ public class Market implements Serializable{
 					 * @param the distributor selected. x!=null
 					 * @param the code of the product . code != null
 					 * @param the quantity of the order. quantity != null
+					 * @throws NotFoundException 
 					 */
-					public void getMoreProducts(Distributor x,int code, int quantity) {
+					public void getMoreProducts(Distributor x,int code, int quantity) throws NotFoundException {
 						Distributor current = firstDistributor;
 						boolean flag = false;
-						while(current!= null && flag == false) {
-							if(current.getCode().equals(x.getCode()) || current.getCompanyName().equals(x.getCompanyName())) {
-								for(int i=0; i<current.getProductsToShow().size();i++) {
+						while(current != null || flag == false){
+							if(current.getCode().equals(x.getCode()) || current.getCompanyName().equals(x.getCompanyName())){
+								for(int i=0; i<current.getProductsToShow().size();i++){
 									if(current.getProductsToShow().get(i).getCode() == code) {
+										int exception = current.searchingByCode(code);
 										int newQuantity = current.getProductsToShow().get(i).getQuantity()+quantity;
 										current.getProductsToShow().get(i).setQuantity(newQuantity);
 										flag = true;
 									}
 								}
 							}
+							current = current.getNext();
+							
 						}
-						for(int i = 0; i<inventory.size() && flag == true;i++) {
-							if(inventory.get(i).getCode()==code) {
-								int InventoryQuantity = inventory.get(i).getQuantity();
-								inventory.get(i).setQuantity(InventoryQuantity+quantity);
-							}
-						}
+						
 					}
 					/**
 					 * this method refresh the inventory after a sale
 					 */
-					public void refreshInventoryAfterASale(Bill sale) {
+					public void refreshInventoryAftersASale(Bill sale) {
 						for(int i = 0; i<sale.getProductsBought().size();i++) {
-							if(sale.getProductsBought().get(i).equals(inventory.get(i))){
-								int quantity = inventory.get(i).getQuantity()-1;
-								inventory.get(i).setQuantity(quantity);
+							boolean flag = false;
+							for(int j = 0;j<inventory.size() && flag == false;j++) {
+								if(sale.getProductsBought().get(i).getCode()==inventory.get(j).getCode()){
+									int quantity = inventory.get(j).getQuantity()-1;
+									inventory.get(j).setQuantity(quantity);
+									flag = true;
+								}
 							}
 						}
 					}
@@ -505,7 +526,6 @@ public class Market implements Serializable{
 					 * <b>post:</b>the list of products was sorted by name </br>  
 					 */
 					public void sortProductByName() {
-						//TODO puede que el método falle
 						int n = inventory.size();
 						for (int i = 0; i <= n; i++) {
 							for (int j = 0; j < n - i - 1; j++){
@@ -582,8 +602,7 @@ public class Market implements Serializable{
 							if(inventory.get(i).getName().equalsIgnoreCase(name)) {
 								found = true;
 								posFind = i;
-								System.out.println(posFind);
-							}
+								}
 						}if(posFind == -1) {
 							throw new NotFoundException();
 						}
@@ -609,7 +628,7 @@ public class Market implements Serializable{
 					}
 					/**
 					 * this method allows fill the inventory with the products of a distributor
-					 * @param the distribuitor to fill the inventory .disti != null
+					 * @param the distributor to fill the inventory .disti != null
 					 */
 					public void fill(Distributor disti) {
 						ArrayList<Product> ñ = disti.getProductsToShow();
