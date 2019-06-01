@@ -58,9 +58,12 @@ public class LoginController {
     		alert.setHeaderText(null);
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();
-    	
     	}catch(Exception e) {
-    		
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error xd");
+    		alert.setHeaderText(null);
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
     	}
     	
     }
@@ -71,7 +74,7 @@ public class LoginController {
     		if(txtFldUserName.getText().isEmpty()) {
     			valid = false;
     			throw new EmptyFieldException("ID", "El usuario es el ID del manager");
-    		}else if( !(txtFldUserName.getText().equals(Main.getMarket().getManager().getName())) ) {
+    		}else if( !(txtFldUserName.getText().equals(String.valueOf(Main.getMarket().getManager().getId()))) ) {
     			valid = false;
     			throw new Exception("error");
     		}
@@ -88,7 +91,18 @@ public class LoginController {
 
     @FXML
     void openSellsWindow(ActionEvent event) {
-    	
+    	try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(("Venta.fxml")));
+			Parent root = (Parent) loader.load();
+			Scene scene = new Scene(root);
+			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.show();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
     }
 
 }
