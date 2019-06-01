@@ -100,7 +100,7 @@ public class Manager {
 					if(password.equals(password)) {
 						flag = true;
 					}else {
-						throw new IncorrectPassWordException(this);
+						throw new IncorrectPassWordException(IncorrectPassWordException.INCORRECT_INPUT);
 					}
 					return  flag;
 				}
@@ -118,7 +118,7 @@ public class Manager {
 						}
 					}
 					if(flag == false) {
-						throw new IncorrectPassWordException(this);
+						throw new IncorrectPassWordException(IncorrectPassWordException.WRONG_FORMAT);
 					}
 					return flag;
 				}

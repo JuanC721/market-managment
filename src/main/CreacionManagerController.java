@@ -1,8 +1,8 @@
 package main;
 
-import java.io.IOException;
-
-import customException.*;
+import customException.EmptyFieldException;
+import customException.FieldTypedIncorrectly;
+import customException.IncorrectPassWordException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.Manager;
-import model.Market;
 
 public class CreacionManagerController {
 
@@ -30,86 +29,105 @@ public class CreacionManagerController {
 
     @FXML
     private TextField txtFldPassword;
-   
+
     @FXML
     private Button btnCrearManager;
     
+    private Manager manager;
+    
     @FXML
-    public void createManager(ActionEvent event) throws IOException{
-    	Manager marketManager = null;
-    	if(validateManagerData() != null) {
-    		marketManager = validateManagerData();
-    	
-	    	Parent root = FXMLLoader.load(getClass().getResource("CreacionMarket.fxml"));
-	    	Scene rootScene = new Scene(root);
-	    	//This line gets the Stage information
-	    	Stage window = (Stage)  ((Node)event.getSource()).getScene().getWindow();
-	    	
-	    	window.setScene(rootScene);
-	    	CreacionMarketController cmc = new CreacionMarketController(marketManager);
-	    	window.show();
-    	}
-    }
-    	
-    public Manager validateManagerData() {
-    	Manager m =  null;
-    	String name;
-		String address;
-		int id;
-		String password;
+    void createManager(ActionEvent event) {
     	try {
-    		
-    		m = new Manager( (txtFldName.getText()), (Integer) (Integer.parseInt(txtFldID.getText())), txtFldPassword.getText(), txtFldAddress.getText());
-    		if(txtFldName.getText().isEmpty()) {
-    			throw new NotFoundException();
+    		if(validateManagerData()) {
+    			initializateManager();
+        		try {
+        			FXMLLoader loader = new FXMLLoader();
+        			loader.setLocation(getClass().getResource(("CreacionMarket.fxml")));
+        			Parent root = (Parent) loader.load();
+        			Scene scene = new Scene(root);
+        			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        			stage.setScene(scene);
+        			stage.centerOnScreen();
+        			stage.show();
+        		}catch(Exception e){
+        			e.printStackTrace();
+        		}
     		}else {
-    			name = txtFldName.getText();
+    			cleanFields();
     		}
-    		
-    		if(txtFldAddress.getText().isEmpty()) {
-    			throw new NotFoundException();
-    		}else {
-    			address = txtFldAddress.getText();
-    		}
-    		
-    		if(txtFldID.getText().isEmpty() || !checkIdWithCaracters(txtFldID.getText())) {
-    			throw new NotFoundException();
-    		}else {
-    			try {
-    				id = (int) Integer.parseInt(txtFldID.getText());
-    			}catch(NumberFormatException e) {
-    				e.printStackTrace();
-    			} 
-    		}
-    		
-    		if(txtFldPassword.getText() == null ||  checkInvalidPassword(txtFldPassword.getText()) ) {
-					throw new IncorrectPassWordException(m);
-    		}else {
-    			password = txtFldPassword.getText();
-    		}
-    	
-    	}catch(NotFoundException e) {
+    	}catch(EmptyFieldException e) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setTitle("Error");
     		alert.setHeaderText(null);
-			alert.setContentText("Por favor llene los campos debidamente");
+			alert.setContentText(e.getMessage());
 			alert.showAndWait();
     	}catch(IncorrectPassWordException e) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setTitle("Error");
     		alert.setHeaderText(null);
-			alert.setContentText("La Contraseña debe contener al menos un numero");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+    	}catch(FieldTypedIncorrectly e) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error");
+    		alert.setHeaderText(null);
+			alert.setContentText(e.getMessage());
 			alert.showAndWait();
     	}
+    		
     	
-    	return m;
     }
     
-    public boolean checkInvalidPassword(String password) {
-		boolean flag = true;
+    public void initializateManager() {
+    	String name = txtFldName.getText();
+    	int id = Integer.parseInt(txtFldID.getText());
+    	String password = txtFldPassword.getText();
+    	String address = txtFldAddress.getText();
+    	manager = new Manager(name, id, password, address);
+    	Main.getMarket().setManager(manager);
+    }
+    
+    public boolean validateManagerData() throws EmptyFieldException, IncorrectPassWordException, FieldTypedIncorrectly{
+    	boolean isValid = true;
+    		//Chequeo de si el nombre del manager es valido
+	    		if(txtFldName.getText().isEmpty()) {
+	    			isValid = false;
+	    			throw new EmptyFieldException("Nombre");
+	    		}
+	    		
+    		//Chequeo de si la direccion del manager es valido
+	    		if(txtFldAddress.getText().isEmpty()) {
+	    			isValid = false;
+	    			throw new EmptyFieldException("Direccion");
+	    		}
+    		
+    		//Chequeo de si el ID del manager es valido
+	    		if(txtFldID.getText().isEmpty()) {
+	    			isValid = false;
+	    			throw new EmptyFieldException("ID");
+	    		}else if(checkIfHaveCaracters(txtFldID.getText())) {
+	    			isValid = false;
+	    			throw new FieldTypedIncorrectly("ID", "El ID debe contener solamente numeros.");
+	    		}
+	    		
+    		//Chequeo de si la contraseña del manager es valido
+	    		if(txtFldPassword.getText().isEmpty()) {
+	    			isValid = false;
+	    			throw new EmptyFieldException("Contraseña");
+	    		}else if( !checkIfHaveAtLeastOneNumber(txtFldPassword.getText()) ){
+	    			isValid = false;
+	    			throw new IncorrectPassWordException(IncorrectPassWordException.WRONG_FORMAT);
+	    		}
+	    		
+    		
+    	return isValid;
+    }
+    
+    public boolean checkIfHaveAtLeastOneNumber(String password) {
+		boolean flag = false;
 		for(int i = 0; i < password.length() ; i++ ) {
 			if(Character.isDigit(password.charAt(i))) {
-				flag = false;
+				flag = true;
 			}
 		}
 		if(flag == true) {
@@ -118,14 +136,20 @@ public class CreacionManagerController {
 		return flag;
 	}
     
-    public boolean checkIdWithCaracters(String id) {
-    	boolean valid = true;
+    public boolean checkIfHaveCaracters(String id) {
+    	boolean valid = false;
     		for(int i = 0 ; i < id.length() ; i++) {
     			if(Character.isAlphabetic(id.charAt(i)) || Character.isWhitespace(id.charAt(i))) {
-    				valid = false;
+    				valid = true;
     			}
     		}
     	return valid;
     }
-
+    
+    public void cleanFields() {
+    	txtFldName.clear();
+    	txtFldAddress.clear();
+    	txtFldID.clear();
+    	txtFldPassword.clear();
+    }
 }

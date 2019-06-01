@@ -71,13 +71,7 @@ public class Market implements Serializable{
 			*@param the email address of the market. emailAddress != null
 			*@param the manager of the market. manager != null
 			*/
-			public Market(String MarketName, int nit, int phone, String addres, String emailAddress, Manager manager){
-					this.MarketName = MarketName;
-					this.nit = nit;
-					this.phone = phone;
-					this.addres = addres;
-					this.emailAddress = emailAddress;
-					this.manager = manager;
+			public Market(){
 					this.refreshInventory = true;
 					this.inventory = new ArrayList<Product>();
 				}
@@ -509,7 +503,7 @@ public class Market implements Serializable{
 					/**
 					 * this method refresh the inventory after a sale
 					 */
-					public void refreshInventoryAftersASale(Bill sale) {
+					public void refreshInventoryAfterASale(Bill sale) {
 						for(int i = 0; i<sale.getProductsBought().size();i++) {
 							boolean flag = false;
 							for(int j = 0;j<inventory.size() && flag == false;j++) {

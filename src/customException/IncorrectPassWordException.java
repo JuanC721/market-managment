@@ -1,40 +1,41 @@
 package customException;
 
-import model.Manager;
 
 @SuppressWarnings("serial")
 public class IncorrectPassWordException extends Exception{
-	public final static String INCORRECT_PASSWORD = "INCORRECT_PASSWORD";
-	public final static String WRONG_FORMAT= "WRONG_FORMAT";
+	public final static String INCORRECT_INPUT= "Contraseña Incorrecta";
+	public final static String WRONG_FORMAT= "Formato Equivocado";
 	/**
-	 * This attribute contains the custom message of the custom exception
-	 */
+	 ** This attribute contains the custom message of the custom exception
+	 **/
 	private String customMessage;
-	/**
-	 * This attribute is for know the type of exception
-	 */
-	private String typeOfOut;
-	/**
-	 * the builder of the DistributorException class
-	 * @throws IncorrectPassWordException 
-	 */
-	public IncorrectPassWordException(Manager manager) throws IncorrectPassWordException {
-		super("the passWord is incorrect");
-		boolean flag = manager.passWordCheck();
-		if(flag == false){
-			customMessage = WRONG_FORMAT;
-		}else {
-			customMessage = typeOfOut;
-		}
-	}
 	
 	/**
-	 * This attribute is change the super of the exception 
-	 */
+	 ** the builder of the DistributorException class
+	 * @throws IncorrectPassWordException 
+	 ** 
+	 **/
+	public IncorrectPassWordException(String type) throws IncorrectPassWordException {	
+		super(type);
+		if(type.equals(WRONG_FORMAT)){
+			customMessage=  "\n\nLa Contraseña es alfanumerica y debe contener al menos un numero. ";
+		}else if(type.equals(INCORRECT_INPUT)){
+			customMessage = "\n\nLa contraseña ingresada es incorrecta.";
+		}
+	}
+	/**
+	/**
+	 ** This attribute is change the super of the exception
+	 ** 
+	 **/
 	@Override
 	public String getMessage() {
 		String msg;
-		msg = super.getMessage() + customMessage;
+		if(customMessage == null) {
+			msg = super.getMessage();
+		}else {
+			msg = super.getMessage() + customMessage;
+		}
 		return msg;
 	}
 

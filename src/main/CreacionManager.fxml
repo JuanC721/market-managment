@@ -39,8 +39,8 @@
                         <Label text="Contraseña" GridPane.rowIndex="3" />
                         <TextField fx:id="txtFldName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" />
                         <TextField fx:id="txtFldAddress" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtFldID" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="txtFldPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="txtFldID" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="165.0" promptText="Solo numeros" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtFldPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="165.0" promptText="debe contener un numero" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
