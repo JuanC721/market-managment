@@ -1,2 +1,0 @@
-manzana,1000,9,la manzana de toda la vida,15,1,yjhfgbc
-pera,1000,9,la pera,10,1,e21dqw
