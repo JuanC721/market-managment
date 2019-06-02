@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import customException.NotFoundException;
 
@@ -365,17 +366,20 @@ public class Distributor{
 					FileReader fileReader = new FileReader(file);
 					BufferedReader br = new BufferedReader(fileReader);
 					String line = br.readLine();
-					line = br.readLine();
+//					Random ran = new Random();
 					while(line != null){
-						String[] temporalDataArray = line.split(step);
+//						int random = ran.nextInt(22);
+						String[] temporalDataArray = line.split(",");
 						Category c = null;
 						if(verifyValidCategory(temporalDataArray[0]) != null) {
 							c = verifyValidCategory(temporalDataArray[0]);
 						}
-						Product temporalNewProduct = new Product(c,temporalDataArray[0],temporalDataArray[1],Integer.parseInt(temporalDataArray[2]), Double.parseDouble(temporalDataArray[3]),Integer.parseInt(temporalDataArray[4]));
+						Product temporalNewProduct = new Product(Category.ConfiteriaDulce,temporalDataArray[1],temporalDataArray[2],Integer.parseInt(temporalDataArray[3]), Double.parseDouble(temporalDataArray[4]),Integer.parseInt(temporalDataArray[5]));
+						System.out.println(temporalNewProduct.getName());
 						addProduct(temporalNewProduct);
 						line = br.readLine();
 					}
+					fill();
 					fileReader.close();
 					br.close();		
 				}
@@ -400,6 +404,12 @@ public class Distributor{
 					List<Product> ñ = preorder();
 					for(int i = 0; i<ñ.size();i++){
 						productsToShow.add(i,ñ.get(i));
+					}
+				}
+				
+				public void f() {
+					for(int i = 0; i<productsToShow.size();i++) {
+						System.out.println(productsToShow.get(i).getName());
 					}
 				}
 				

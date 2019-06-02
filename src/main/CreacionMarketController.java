@@ -10,6 +10,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+
 import customException.*;
 
 public class CreacionMarketController {
@@ -65,19 +68,31 @@ public class CreacionMarketController {
 	    	}
     }
     
-    public void initializateMarket() {
+    public void initializateMarket(){
     	String MarketName = txtFldName.getText();
     	int nit = Integer.parseInt(txtFldNit.getText());
     	int phone = Integer.parseInt(txtFldPhone.getText());
     	String address = txtFldAddress.getText();
     	String email = txtFldEmail.getText();
     	
- 
-    	Main.getMarket().setMarketName(MarketName);
-    	Main.getMarket().setNit(nit);
-    	Main.getMarket().setPhone(phone);
-    	Main.getMarket().setAddres(address);
-    	Main.getMarket().setEmailAddress(email);
+    	
+    		Main.getMarket().setMarketName(MarketName);
+    		Main.getMarket().setNit(nit);
+    		Main.getMarket().setPhone(phone);
+    		Main.getMarket().setAddres(address);
+    		Main.getMarket().setEmailAddress(email);
+    		try {
+				Main.getMarket().generateDistributors("data\\distributors.txt", ",");
+				Main.getMarket().actualInventory();
+				Main.getMarket().f();
+			}catch(IOException e){
+				Alert alert = new Alert(AlertType.ERROR);
+	    		alert.setTitle("Error");
+	    		alert.setHeaderText(null);
+				alert.setContentText("the file dont exist or not is valid");
+				alert.showAndWait();
+				e.printStackTrace();
+			}
     }
 
     public boolean validateMarketData() throws EmptyFieldException, FieldTypedIncorrectly, EmptyFieldException{

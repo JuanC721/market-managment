@@ -32,7 +32,7 @@ public class Costumer {
 		//Methods
 			//Builder
 				/**
-				*This is the constructor of the Costumer class
+				*This is the constructor of the Costumer cla	ss
 				*@param the name of the costumer. name != null
 				*@param the code of the costumer. id != null
 				*@param the phone of the costumer. phone != null

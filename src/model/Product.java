@@ -50,7 +50,7 @@ public class Product implements Comparable<Product>{
 					this.description = description;
 					this.code = code;
 					this.price = price;
-					this.quantity = quantity;
+					this.quantity = quantity;	
 				}
 			
 			//Getters

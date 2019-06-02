@@ -1,0 +1,4 @@
+cost:1000.0products:
+1. bombombum
+2. bombombum
+date of sale:Sat Jun 01 21:48:49 COT 2019

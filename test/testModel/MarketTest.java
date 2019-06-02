@@ -2,6 +2,7 @@ package testModel;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +20,13 @@ class MarketTest {
 	private Market marketTest;
 	public void setupScenary1() {
 		Manager manager = new Manager("juanito",1234,"juanitoElGigante@hotmail.com","trolazo111");
-		Market init = new Market("marketExample",23132,312777891,"carrera1","markerExample@live.com",manager);
+		Market init = new Market();
+		init.setMarketName("marketExample");
+		init.setAddres("carrera1");
+		init.setPhone(312777891);
+		init.setNit(23132);
+		init.setEmailAddress("markerExample@live.com");
+		init.setManager(manager);
 		Distributor distributor1 = new Distributor("ejemploCompany","A0001","Alejo","3154567892");
 		Distributor distributor2 = new Distributor("ejemploCompany2", "A0002", "Jairo", "3189020938");
 		Product m = new Product(Category.Frutas, "M", "element M", 30, 1200, 10);
@@ -186,6 +193,31 @@ class MarketTest {
 		int lol = marketTest.searchingByCode(30);
 		Product lop = marketTest.getInventory().get(lol);
 		assertEquals(8, lop.getQuantity());
+	}
+//	@Test
+//	void loadTxt() {
+//		setupScenary1();
+//		try {
+//			marketTest.generateDistributors("data\\distributors.txt", ",");
+//			Distributor disti = marketTest.searchingDistributorName("colombina");
+//			assertEquals("colombina", disti.getCompanyName());
+//			disti.fill();
+//			marketTest.actualInventory();	
+//			int pos = disti.searchingByCode(1234);
+//			Product x = disti.getProductsToShow().get(pos);
+//			assertEquals("bombombum", x.getName());
+//			assertEquals(1234, x.getCode());
+//		} catch (IOException | NotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+	@Test
+	void x() throws IOException {
+		setupScenary1();
+		marketTest.generateDistributors("data\\distributors.txt", ",");
+		marketTest.actualInventory();
+		marketTest.f();
 	}
 
 }

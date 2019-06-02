@@ -205,6 +205,10 @@ public class Bill implements Comparable<Bill>{
 					 }
 					 System.out.println(cost);
 				 }
+
+				public void setProductsBought(ArrayList<Product> productsBought) {
+					this.productsBought = productsBought;
+				}
 				 
 
 

@@ -393,10 +393,10 @@ public class Market implements Serializable{
 					/**
 					 * this method return a file with the information of a object type Bill
 					 * @param a object type Bill. newBill != null
+					 * @throws FileNotFoundException 
 					 */
 					public void printReport(String path, Bill newBill) throws FileNotFoundException{
 						PrintWriter pw = new PrintWriter(new File(path));
-						
 						String repStr = newBill.getReport();
 						pw.print(repStr);
 						
@@ -413,18 +413,17 @@ public class Market implements Serializable{
 						FileReader fileReader = new FileReader(file);
 						BufferedReader br = new BufferedReader(fileReader);
 						String line = br.readLine();
-						line = br.readLine();
-						int cont = 1;
 						while(line != null){
 							String[] temporalDataArray = line.split(step);
 							Distributor temporalNewDistributor = new Distributor(temporalDataArray[0],temporalDataArray[1],temporalDataArray[2],temporalDataArray[3]);
-							temporalNewDistributor.generateProducts("data//path"+cont," ,");
+							temporalNewDistributor.generateProducts("data\\producto.txt"," ,");
 							addDistributor(temporalNewDistributor);
-							cont++;
+							System.out.println(temporalNewDistributor.getCompanyName());
 							line = br.readLine();
 						}
 						fileReader.close();
 						br.close();	
+											
 					}
 					/**
 					 * this method search a Distributor by name 
@@ -498,6 +497,7 @@ public class Market implements Serializable{
 							current = current.getNext();
 							
 						}
+						actualInventory();
 						
 					}
 					/**
@@ -615,7 +615,7 @@ public class Market implements Serializable{
 								found = true;
 								posFind = i;
 							}
-						}if(posFind == -1) {
+						}if(posFind == -1){
 							throw new NotFoundException();
 						}
 						return posFind;
@@ -629,6 +629,12 @@ public class Market implements Serializable{
 						for(int i = 0; i<ñ.size();i++) {
 							inventory.add(i,ñ.get(i));
 //							System.out.println(inventory.get(i).getCode());
+						}
+					}
+					
+					public void f() {
+						for (int i = 0; i < inventory.size(); i++) {
+							System.out.println(inventory.get(i).getName());
 						}
 					}
 				
