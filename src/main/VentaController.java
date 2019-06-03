@@ -3,16 +3,22 @@ package main;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
-
+import threads.*;
 import customException.NotFoundException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Bill;
 import model.Product;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 public class VentaController{
 
@@ -22,7 +28,19 @@ public class VentaController{
     @FXML
     private TextField txtFldCodigoProducto;
     
+    @FXML
+    private Label lblClock;
+    
+    @FXML
     private ArrayList<Product> produtsBought;
+    
+    private ClockThread t;
+    
+    public VentaController() {
+    	lblClock = new Label();
+    	startClock();
+    }
+    
     @FXML
     void addProduct(ActionEvent event){
     	try {
@@ -57,11 +75,6 @@ public class VentaController{
     }
 
     @FXML
-    void editProduct(ActionEvent event){
-
-    }
-
-    @FXML
     void finishBill(ActionEvent event){
     	Date actual = new Date();
     	Bill newSale = new Bill(actual,actual.getHours(),actual.getMinutes());
@@ -81,9 +94,45 @@ public class VentaController{
 			e.printStackTrace();
 			e.printStackTrace();
 		}
+    	/**try {
+			t.join();
+			t.stop();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		*/
+    	
     }
+    
+    @FXML
+    void goBackLogin(ActionEvent event) {
+    	try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(("Login.fxml")));
+			Parent root = (Parent) loader.load();
+			Scene scene = new Scene(root);
+			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.show();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+    }
+
+    
+    public void startClock() {
+    	t = new ClockThread(this);
+    	t.start();
+    }
+    
+    public void updateTime(String time) {
+    	lblClock.setText(time);
+    }
+    
     @FXML
     void initialize() {
 		produtsBought = new ArrayList<Product>();
+		
 	}
 }

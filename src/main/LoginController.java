@@ -1,9 +1,6 @@
 package main;
 
-import java.util.InputMismatchException;
-
 import customException.EmptyFieldException;
-import customException.FieldTypedIncorrectly;
 import customException.IncorrectPassWordException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

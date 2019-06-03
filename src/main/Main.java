@@ -14,7 +14,12 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("CreacionManager.fxml"));
+		Parent root;
+		if(market.getManager() == null) {
+			root = FXMLLoader.load(getClass().getResource("CreacionManager.fxml"));
+		}else {
+			root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		}
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		

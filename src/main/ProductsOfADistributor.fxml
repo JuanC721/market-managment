@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.DistribuidoresController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="483.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.DistribuidoresController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="361.0" prefWidth="360.0">
+      <VBox alignment="TOP_CENTER" prefHeight="361.0" prefWidth="478.0">
          <children>
             <Label fx:id="lblProductsOf" text="Productos de">
                <font>
@@ -22,10 +22,13 @@
             </Label>
             <ScrollPane prefHeight="271.0" prefWidth="360.0">
                <content>
-                  <TableView fx:id="listProducts" prefHeight="271.0" prefWidth="346.0">
+                  <TableView fx:id="listProducts" prefHeight="271.0" prefWidth="468.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="Codigo" />
                       <TableColumn prefWidth="75.0" text="C2" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
                     </columns>
                   </TableView>
                </content>

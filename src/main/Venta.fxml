@@ -18,24 +18,22 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.VentaController">
    <children>
-      <Label alignment="CENTER" layoutX="263.0" layoutY="4.0" text="Venta">
+      <Label alignment="CENTER" layoutX="266.0" layoutY="11.0" text="Venta">
          <font>
-            <Font size="25.0" />
+            <Font name="System Bold" size="25.0" />
          </font>
       </Label>
       <HBox layoutY="50.0" prefHeight="350.0" prefWidth="600.0">
          <children>
-            <VBox prefHeight="350.0" prefWidth="296.0">
+            <VBox prefHeight="350.0" prefWidth="328.0">
                <children>
-                  <ScrollPane prefHeight="283.0" prefWidth="287.0">
+                  <ScrollPane prefHeight="346.0" prefWidth="303.0">
                      <content>
-                        <ListView fx:id="listProducts" prefHeight="270.0" prefWidth="286.0" />
+                        <ListView fx:id="listProducts" prefHeight="296.0" prefWidth="302.0" />
                      </content>
                   </ScrollPane>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="101.0" layoutY="33.0" mnemonicParsing="false" onAction="#editProduct" prefHeight="39.0" prefWidth="115.0" text="Editar Producto" />
-                        <ImageView fitHeight="38.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" />
                         <Button layoutX="96.0" layoutY="33.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="39.0" prefWidth="115.0" text="Eliminar Producto" />
                      </children>
                   </HBox>
@@ -43,7 +41,7 @@
             </VBox>
             <Pane prefHeight="350.0" prefWidth="322.0">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="350.0" prefWidth="313.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="350.0" prefWidth="297.0">
                      <children>
                         <Separator layoutX="10.0" layoutY="37.0" prefHeight="12.0" prefWidth="313.0" />
                         <Label text="Registro">
@@ -55,8 +53,8 @@
                         <ImageView fitHeight="13.0" fitWidth="199.0" layoutX="69.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" />
                         <GridPane alignment="CENTER" minWidth="-Infinity" prefHeight="30.0" prefWidth="232.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="113.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="200.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="106.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="207.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -70,15 +68,26 @@
                         <HBox alignment="CENTER" prefHeight="57.0" prefWidth="313.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#addProduct" prefHeight="37.0" prefWidth="113.0" text="Agregar Producto" />
-                              <ImageView fitHeight="40.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="40.0" fitWidth="9.0" pickOnBounds="true" preserveRatio="true" />
                               <Button layoutX="46.0" layoutY="40.0" mnemonicParsing="false" onAction="#finishBill" prefHeight="37.0" prefWidth="113.0" text="Finalizar Compra" />
                            </children>
                         </HBox>
+                        <VBox alignment="BOTTOM_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="176.0" prefWidth="268.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#goBackLogin" text="Regresar" />
+                              <ImageView fitHeight="10.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
             </Pane>
          </children>
       </HBox>
+      <Label fx:id="lblClock" layoutX="427.0" layoutY="10.0" text="00:00:00 XM">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
