@@ -6,9 +6,30 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import threads.CircleThread;
 
 public class MenuAdministratorController {
+	
+	@FXML
+	private Circle blueCircle;
+	
+	@FXML
+	private AnchorPane circleAnchorPane;
+	
+	private CircleThread ct;
+	
+	private int speed;
+	
+	public MenuAdministratorController() {
+		ct = new CircleThread(this);
+		blueCircle = new Circle();
+		circleAnchorPane = new AnchorPane();
+    	ct.start();
+    	speed = 3;
+	}
 
     @FXML
     void exit(ActionEvent event) {
@@ -72,6 +93,15 @@ public class MenuAdministratorController {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+    }
+    
+    public void moveBlueCircle() {
+    	blueCircle.setLayoutX(blueCircle.getLayoutX()+speed);
+    	if(blueCircle.getLayoutX() >= 410) {
+    		speed = speed*-1;
+    	}else if(blueCircle.getLayoutX() <= 0) {
+    		speed = speed*-1;
+    	}
     }
 
 }
