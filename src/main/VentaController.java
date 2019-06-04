@@ -151,13 +151,13 @@ public class VentaController{
     	generic.getChildren().add(sing);
     	generic.setAlignment(Pos.CENTER);
     	javafx.scene.control.TextField genericText = new javafx.scene.control.TextField();
-    	genericText.setText("nombre del usuario");
+    	genericText.setPromptText("nombre del usuario");
     	javafx.scene.control.TextField genericText1 = new javafx.scene.control.TextField();
-    	genericText1.setText("id del usuario");
+    	genericText1.setPromptText("id del usuario");
     	javafx.scene.control.TextField genericText2 = new javafx.scene.control.TextField();
-    	genericText2.setText("Telefono del usurio");
+    	genericText2.setPromptText("Telefono del usurio");
     	javafx.scene.control.TextField genericText3 = new javafx.scene.control.TextField();
-    	genericText3.setText("correo electronico del usuario");
+    	genericText3.setPromptText("correo electronico del usuario");
     	generic.getChildren().addAll(genericText,genericText1,genericText2,genericText3);
     	Button ok = new Button();
     	ok.setText("OK");

@@ -38,9 +38,9 @@ public class ProductosDistribuidorController {
     private boolean flag = true;
     @FXML
     void addProductToInventory(ActionEvent event) {
-    	Stage genericStage = new Stage();
-    	genericStage.initModality(Modality.APPLICATION_MODAL);
-    	genericStage.initOwner(stage);
+    	Stage genericStage1 = new Stage();
+    	genericStage1.initModality(Modality.APPLICATION_MODAL);
+    	genericStage1.initOwner(stage);
     	VBox generic = new VBox(20);
     	Scene scene = new Scene(generic, 300, 200);
     	Label sing = new Label();
@@ -52,11 +52,12 @@ public class ProductosDistribuidorController {
     	Button existenteAlDistribuidor = new Button();
     	existenteAlDistribuidor.setText("pedir mas productos");
     	generic.getChildren().addAll(nuevoAlDistribuidor,existenteAlDistribuidor);
-    	genericStage.setScene(scene);
-    	genericStage.show();
+    	genericStage1.setScene(scene);
+    	genericStage1.show();
     	nuevoAlDistribuidor.setOnAction(new EventHandler<ActionEvent>(){	
     		@Override
     		public void handle(ActionEvent arg0){
+    			genericStage1.close();
     			Stage genericStage = new Stage();
     	    	genericStage.initModality(Modality.APPLICATION_MODAL);
     	    	genericStage.initOwner(stage);
@@ -67,15 +68,15 @@ public class ProductosDistribuidorController {
     	    	generic.getChildren().add(sing);
     	    	generic.setAlignment(Pos.CENTER);
     	    	javafx.scene.control.TextField genericText = new javafx.scene.control.TextField();
-    	    	genericText.setText("nombre del producto");
+    	    	genericText.setPromptText("nombre del producto");
     	    	javafx.scene.control.TextField genericText1 = new javafx.scene.control.TextField();
-    	    	genericText1.setText("descripcion del producto");
+    	    	genericText1.setPromptText("descripcion del producto");
     	    	javafx.scene.control.TextField genericText2 = new javafx.scene.control.TextField();
-    	    	genericText2.setText("codigo del producto");
+    	    	genericText2.setPromptText("codigo del producto");
     	    	javafx.scene.control.TextField genericText3 = new javafx.scene.control.TextField();
-    	    	genericText3.setText("precio del producto");
+    	    	genericText3.setPromptText("precio del producto");
     	    	javafx.scene.control.TextField genericText4 = new javafx.scene.control.TextField();
-    	    	genericText4.setText("cantidad del producto");
+    	    	genericText4.setPromptText("cantidad del producto");
     	    	generic.getChildren().addAll(genericText,genericText1,genericText2,genericText3,genericText4);
     	    	Button ok = new Button();
     	    	ok.setText("OK");
@@ -97,6 +98,7 @@ public class ProductosDistribuidorController {
     	existenteAlDistribuidor.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent arg0){
+    			genericStage1.close();
     			Stage genericStage = new Stage();
     	    	genericStage.initModality(Modality.APPLICATION_MODAL);
     	    	genericStage.initOwner(stage);
@@ -121,7 +123,8 @@ public class ProductosDistribuidorController {
     	    		public void handle(ActionEvent arg0){
     	    			try {
 							Main.getMarket().getMoreProducts(DistribuidoresController.getDistributorToShow(), Integer.parseInt(genericText.getText()), Integer.parseInt(genericText1.getText()));
-						} catch (NumberFormatException | NotFoundException e) {
+							genericStage.close();
+    	    			} catch (NumberFormatException | NotFoundException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -132,7 +135,6 @@ public class ProductosDistribuidorController {
     		});
     	
     }
-
     @FXML
     void goBackDistributors(ActionEvent event) {
     	try {

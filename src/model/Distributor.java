@@ -221,7 +221,6 @@ public class Distributor implements Serializable{
 				 *<b>post:</b>the list of products was sorted by name </br>  
 				 */
 				public void sortProductByName() {
-					//TODO puede que el método falle
 					productsToShow = (ArrayList<Product>) preorder();
 					int n = productsToShow.size();
 					for (int i = 0; i <= n; i++) {
@@ -316,11 +315,7 @@ public class Distributor implements Serializable{
 						lis.addAll(lis3);
 					}
 					return lis;
-				}
-			   
-			
-
-			    
+				}		    
 				/**
 				 *this method allows add a new object type Product in the binary search tree of products
 				 *@param a object type Product. newOne != null
@@ -367,9 +362,7 @@ public class Distributor implements Serializable{
 					FileReader fileReader = new FileReader(file);
 					BufferedReader br = new BufferedReader(fileReader);
 					String line = br.readLine();
-//					Random ran = new Random();
 					while(line != null){
-//						int random = ran.nextInt(22);
 						String[] temporalDataArray = line.split(",");
 						Category c = null;
 						if(verifyValidCategory(temporalDataArray[0]) != null) {
@@ -403,17 +396,13 @@ public class Distributor implements Serializable{
 				 */
 				public void fill() {
 					productsToShow.clear();
-					List<Product> ñ = preorder();
-					for(int i = 0; i<ñ.size();i++){
-						productsToShow.add(i,ñ.get(i));
+					List<Product> d = preorder();
+					for(int i = 0; i<d.size();i++){
+						productsToShow.add(i,d.get(i));
 					}
 				}
 				
-				public void f() {
-					for(int i = 0; i<productsToShow.size();i++) {
-						System.out.println(productsToShow.get(i).getName());
-					}
-				}
+				
 				
 				
 }

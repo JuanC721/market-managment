@@ -206,7 +206,7 @@ class MarketTest {
 		assertEquals(8, lop.getQuantity());
 	}
 	
-	//nuevos métodos
+	//nuevos mï¿½todos
 	@Test
 	void loadTxt() {
 		setupScenary1();
@@ -218,7 +218,7 @@ class MarketTest {
 			marketTest.actualInventory();	
 			int pos = disti.searchingByCode(1234);
 			Product x = disti.getProductsToShow().get(pos);
-			assertEquals("bombombum", x.getName());
+			assertEquals("muuu", x.getName());
 			assertEquals(1234, x.getCode());
 		} catch (IOException e) {
 			fail("the product is not added");

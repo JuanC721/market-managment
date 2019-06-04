@@ -462,7 +462,7 @@ public class Market implements Serializable{
 						
 						return found;
 					}
-					//nuevos métodos
+					//nuevos mï¿½todos
 					/**
 					 * this method refresh the inventory if you add a new Distributor
 					 */
@@ -640,13 +640,13 @@ public class Market implements Serializable{
 					 * @param the distributor to fill the inventory .disti != null
 					 */
 					public void fill(Distributor disti) {
-						ArrayList<Product> ñ = disti.getProductsToShow();
-						for(int i = 0; i<ñ.size();i++) {
-							inventory.add(i,ñ.get(i));
+						ArrayList<Product> d = disti.getProductsToShow();
+						for(int i = 0; i<d.size();i++) {
+							inventory.add(i,d.get(i));
 //							System.out.println(inventory.get(i).getCode());
 						}
 					}
-					//métodos nuevos
+					//mï¿½todos nuevos
 					
 					public void sortDistributorByName() {
 						if(firstDistributor  != null){

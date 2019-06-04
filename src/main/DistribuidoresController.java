@@ -23,7 +23,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Category;
 import model.Distributor;
+import model.Product;
 
 public class DistribuidoresController {
 
@@ -36,7 +38,42 @@ public class DistribuidoresController {
 
 	@FXML
     void addDistributor(ActionEvent event) {
-
+		Stage genericStage = new Stage();
+    	genericStage.initModality(Modality.APPLICATION_MODAL);
+    	genericStage.initOwner(stage);
+    	VBox generic = new VBox(20);
+    	Scene scene = new Scene(generic, 300, 450);
+    	Label sing = new Label();
+    	sing.setText("Introduce nombre del nuevo distribuidor");
+    	generic.getChildren().add(sing);
+    	generic.setAlignment(Pos.CENTER);
+    	javafx.scene.control.TextField genericText = new javafx.scene.control.TextField();
+    	genericText.setPromptText("Introduzca el nombre del distribuidor");
+    	javafx.scene.control.TextField genericText1 = new javafx.scene.control.TextField();
+    	genericText1.setPromptText("introduzca el codigo");
+    	javafx.scene.control.TextField genericText2 = new javafx.scene.control.TextField();
+    	genericText2.setPromptText("introduzca el nombre del encargado");
+    	javafx.scene.control.TextField genericText3 = new javafx.scene.control.TextField();
+    	genericText3.setPromptText("introduzca el telefono del distribuidor");
+    	javafx.scene.control.TextField genericText4 = new javafx.scene.control.TextField();
+    	genericText4.setPromptText("cuantos productos quiere agregar al distribuidor?");
+    	generic.getChildren().addAll(genericText,genericText1,genericText2,genericText3,genericText4);
+    	Button ok = new Button();
+    	ok.setText("OK");
+    	generic.getChildren().add(ok);
+    	genericStage.setScene(scene);
+    	genericStage.show();
+    	ok.setOnAction(new EventHandler<ActionEvent>(){	
+    		@Override
+    		public void handle(ActionEvent arg0){
+    			genericStage.close();
+    			int cont = 0;
+    			Distributor xOne = new Distributor(genericText.getText(), genericText1.getText(), genericText2.getText(), genericText3.getText());
+  
+    			Main.getMarket().addDistributor(xOne);
+    		}
+    	
+    	});
     }
     private static Distributor distributorToShow;
     @FXML
@@ -88,8 +125,8 @@ public class DistribuidoresController {
     	TableColumn<Distributor, String> codeColumn = new TableColumn<>("Codigo");
     	codeColumn.setMinWidth(100);
     	codeColumn.setCellValueFactory(new PropertyValueFactory<Distributor, String>("code"));
-//		COLUMNA DE COMPAÑIA
-    	TableColumn<Distributor, String> companyColumn = new TableColumn<>("Compañia");
+//		COLUMNA DE COMPAï¿½IA
+    	TableColumn<Distributor, String> companyColumn = new TableColumn<>("Compaï¿½ia");
     	companyColumn.setMinWidth(100);
     	companyColumn.setCellValueFactory(new PropertyValueFactory<Distributor, String>("companyName"));
 //    	COLUMNA DE MANAGER
