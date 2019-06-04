@@ -34,7 +34,7 @@
                   </ScrollPane>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="96.0" layoutY="33.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="39.0" prefWidth="115.0" text="Eliminar Producto" />
+                        <Button layoutX="96.0" layoutY="33.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="39.0" prefWidth="115.0" text="Eliminar Factura" />
                      </children>
                   </HBox>
                </children>
@@ -74,6 +74,16 @@
                         </HBox>
                         <VBox alignment="BOTTOM_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="176.0" prefWidth="268.0">
                            <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#searchCostumer" text="Buscar Cliente Afiliado" />
+                                    <ImageView fitHeight="40.0" fitWidth="9.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Button mnemonicParsing="false" onAction="#regisCostumer" prefHeight="25.0" prefWidth="115.0" text="Registrar Cliente" />
+                                 </children>
+                              </HBox>
+                              <Label fx:id="costumerLabel" prefHeight="17.0" prefWidth="277.0" />
+                              <ImageView fitHeight="44.0" fitWidth="264.0" pickOnBounds="true" preserveRatio="true" />
+                              <Separator prefHeight="12.0" prefWidth="313.0" />
                               <Button mnemonicParsing="false" onAction="#goBackLogin" text="Regresar" />
                               <ImageView fitHeight="10.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" />
                            </children>

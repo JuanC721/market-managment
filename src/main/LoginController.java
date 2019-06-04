@@ -2,6 +2,8 @@ package main;
 
 import customException.EmptyFieldException;
 import customException.IncorrectPassWordException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +12,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Distributor;
 
 public class LoginController {
 
@@ -25,11 +31,13 @@ public class LoginController {
     @FXML
     private TextField txtFldPassword;
     
+    static TableView<Distributor> f;
     @FXML
     void ingresarInfoAdmin(ActionEvent event) {
     	try {
     		if(validateInfoAdmin()) {
     			try {
+    				initializate();
         			FXMLLoader loader = new FXMLLoader();
         			loader.setLocation(getClass().getResource(("MenuAdministrador.fxml")));
         			Parent root = (Parent) loader.load();
@@ -101,5 +109,30 @@ public class LoginController {
 			e.printStackTrace();
 		}
     }
-
+    //nuevos metodos
+    
+    public void initializate(){
+    	TableView<Distributor> listDistributors = new TableView<Distributor>();
+//    	COLUMNA DE CODIGO
+    	TableColumn<Distributor, String> codeColumn = new TableColumn<>("Codigo");
+    	codeColumn.setMinWidth(100);
+    	codeColumn.setCellValueFactory(new PropertyValueFactory<Distributor, String>("code"));
+//		COLUMNA DE COMPAÑIA
+    	TableColumn<Distributor, String> companyColumn = new TableColumn<>("Compañia");
+    	companyColumn.setMinWidth(100);
+    	companyColumn.setCellValueFactory(new PropertyValueFactory<Distributor, String>("companyName"));
+//    	COLUMNA DE MANAGER
+    	TableColumn<Distributor, String> managerColumn = new TableColumn<>("Administrador");
+    	managerColumn.setMinWidth(100);
+    	managerColumn.setCellValueFactory(new PropertyValueFactory<Distributor, String>("distributorManagerName"));
+//   	COLUMNA DE TELEFONO
+    	TableColumn<Distributor, String> phoneColumn = new TableColumn<>("telefono");
+    	phoneColumn.setMinWidth(100);
+    	phoneColumn.setCellValueFactory(new PropertyValueFactory<Distributor, String>("distributorPhone"));
+    	listDistributors.getColumns().addAll(codeColumn,companyColumn,managerColumn,phoneColumn);
+    	Main.getMarket().distributorToArrayList();
+    	ObservableList<Distributor> x = FXCollections.observableArrayList(Main.getMarket().getDistributorsToShow());
+    	listDistributors.setItems(x);
+    	f = listDistributors;
+    }
 }

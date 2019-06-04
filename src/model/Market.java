@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale.Category;
 
 import customException.NotFoundException;
 
@@ -60,6 +63,10 @@ public class Market implements Serializable{
 			 * this attribute allows know if the inventory was refreshed for first time; 
 			 */
 			private boolean refreshInventory; 
+			/**
+			 * 
+			 */
+			private ArrayList<Bill> billsToShow;
 		//Methods
 			//Builder
 			/**
@@ -74,6 +81,8 @@ public class Market implements Serializable{
 			public Market(){
 					this.refreshInventory = true;
 					this.inventory = new ArrayList<Product>();
+					this.distributorsToShow = new ArrayList<Distributor>();
+					this.setBillsToShow(new ArrayList<Bill>());
 				}
 		
 			//Getters
@@ -240,8 +249,8 @@ public class Market implements Serializable{
 				 * @param the new costumer to add. newCostumer != null
 				 * <b>post</b> a new Object type costumer was added to the linked list of Costumer</br> 
 				 */
-				public void addCostumer( Costumer newCostumer){
-					if(firstCostumer == null) {
+				public void addCostumer(Costumer newCostumer){
+					if(firstCostumer == null){
 						firstCostumer = newCostumer;
 					}else {
 						Costumer current = firstCostumer;
@@ -274,12 +283,14 @@ public class Market implements Serializable{
 				 */
 				private void addBill(Bill current, Bill newBill) {
 					if(current.compareTo(newBill) <= 0){
+
 						if(current.getLeft() == null){
 							current.setLeft(newBill);
 						}else{
 							addBill(current.getLeft(), newBill);
 						}
 					}else{
+						
 						if(current.getRight() == null) {
 							current.setRight(newBill);
 						}else{
@@ -413,10 +424,14 @@ public class Market implements Serializable{
 						FileReader fileReader = new FileReader(file);
 						BufferedReader br = new BufferedReader(fileReader);
 						String line = br.readLine();
+						boolean flag = true;
 						while(line != null){
 							String[] temporalDataArray = line.split(step);
 							Distributor temporalNewDistributor = new Distributor(temporalDataArray[0],temporalDataArray[1],temporalDataArray[2],temporalDataArray[3]);
-							temporalNewDistributor.generateProducts("data\\producto.txt"," ,");
+							if(flag == true) {
+								temporalNewDistributor.generateProducts("data\\producto.txt"," ,");
+								flag = false;
+							}
 							addDistributor(temporalNewDistributor);
 							System.out.println(temporalNewDistributor.getCompanyName());
 							line = br.readLine();
@@ -452,9 +467,9 @@ public class Market implements Serializable{
 					 * this method refresh the inventory if you add a new Distributor
 					 */
 					public void actualInventory(){
-						
+						inventory.clear();
 						Distributor current = firstDistributor;
-						if(refreshInventory == true){
+//						if(refreshInventory == true){
 							
 							while(current!=null){
 
@@ -463,14 +478,14 @@ public class Market implements Serializable{
 							}
 							refreshInventory = false;
 							
-						}else{
-							while(current.getNext()!=null) {
-								current = current.getNext();
-							}
-							for(int i = 0; i<current.getProductsToShow().size(); i++) {
-								inventory.add(i,current.getProductsToShow().get(i));
-							}
-						}
+//						}else{
+//							while(current.getNext()!=null) {
+//								current = current.getNext();
+//							}
+//							for(int i = 0; i<current.getProductsToShow().size(); i++) {
+//								inventory.add(i,current.getProductsToShow().get(i));
+//							}
+//						}
 					}
 					/**
 					 * this method add more products to the market inventory
@@ -535,7 +550,7 @@ public class Market implements Serializable{
 					 * this method sort by price the list of products
 					 * <b>post:</b>the list of products was sorted by price </br>  
 					 */
-					public void sortProductByPrice() {
+					public void sortProductByPrice(){
 						int n = inventory.size();
 						for (int i = 0; i <= n; i++) {
 							for (int j = 0; j < n - i - 1; j++){
@@ -631,11 +646,279 @@ public class Market implements Serializable{
 //							System.out.println(inventory.get(i).getCode());
 						}
 					}
+					//métodos nuevos
 					
+					public void sortDistributorByName() {
+						if(firstDistributor  != null){
+							boolean changed = true;
+							while(changed) {
+								Distributor current = firstDistributor;
+								changed = false;
+								while(current.getNext() != null) {
+									Distributor next = current.getNext();
+									if(current.getCompanyName().compareTo(next.getCompanyName())>0) {
+										if(current.getPrevious()!=null) {
+											current.getPrevious().setNext(next);
+										}
+										if(next.getNext()!=null) {
+											next.getNext().setPrevious(current);
+										}
+										current.setNext(next.getNext());
+										next.setPrevious(current.getPrevious());
+										current.setPrevious(next);
+										next.setNext(current);						
+										if(current==firstDistributor) {
+											firstDistributor = next;
+										}
+										changed = true;
+									}else{
+										current = current.getNext();
+									}
+								}
+							}
+						}
+					}
+					
+					public void sortDistributorByCode() {
+						if(firstDistributor  != null){
+							boolean changed = true;
+							while(changed) {
+								Distributor current = firstDistributor;
+								changed = false;
+								while(current.getNext() != null) {
+									Distributor next = current.getNext();
+									if(current.getCode().compareTo(next.getCode())>0) {
+										if(current.getPrevious()!=null) {
+											current.getPrevious().setNext(next);
+										}
+										if(next.getNext()!=null) {
+											next.getNext().setPrevious(current);
+										}
+										current.setNext(next.getNext());
+										next.setPrevious(current.getPrevious());
+										current.setPrevious(next);
+										next.setNext(current);						
+										if(current==firstDistributor) {
+											firstDistributor = next;
+										}
+										changed = true;
+									}else{
+										current = current.getNext();
+									}
+								}
+							}
+						}
+					}
+					
+					public Costumer searchingCostumerById(String id) throws NotFoundException {
+						Costumer found = null;
+						Costumer current = firstCostumer;
+						boolean flag = false;
+						while(current!=null && !flag){
+							if(current.getId().equals(id)){
+								found = current;
+								flag = true;
+							}
+							current = current.getNext();
+						}
+						if(found == null) {
+							throw new NotFoundException();
+						}
+						
+						return found;
+					}
+					public Distributor searchingDistributorCode(String code) throws NotFoundException{
+						Distributor found = null;
+						Distributor current = firstDistributor;
+						boolean flag = false;
+						while(current!=null && !flag){
+							if(current.getCode().equalsIgnoreCase(code)){
+								found = current;
+								flag = true;
+							}
+							current = current.getNext();
+						}
+						if(found == null) {
+							throw new NotFoundException();
+						}
+						
+						return found;
+					}
+					
+					public boolean discount(Costumer costumer) {
+						boolean flag = false;
+						if(costumer.getPoints()>50) {
+							flag = true;
+							costumer.setPoints(costumer.getPoints()-50);
+						}
+						return flag;
+					}
+					/**
+					 * 
+					 */
+					private ArrayList<Distributor> distributorsToShow;
+					
+					public ArrayList<Distributor> getDistributorsToShow() {
+						return distributorsToShow;
+					}
+
+					public void setDistributorsToShow(ArrayList<Distributor> distributorsToShow) {
+						this.distributorsToShow = distributorsToShow;
+					}
+					
+					public void distributorToArrayList() {
+						distributorsToShow.clear();
+						Distributor current = firstDistributor;
+						while(current!= null){
+							distributorsToShow.add(current);
+							current = current.getNext();
+						}
+					}
+					public Bill searchInBTS(String code) throws NotFoundException{
+						Bill search= new Bill(new Date(),0,0);
+						search.setCode(code);
+						return searchInBTS(billsRoot,search);
+					}
+					private Bill searchInBTS(Bill current, Bill search) throws NotFoundException {
+						if(current!=null) {
+							if(search.compareTo(current)>0) {
+								System.out.println(search.compareTo(current));
+								if(current.getLeft()!=null){
+									return searchInBTS(current.getLeft(),search);
+								}else {
+									return searchInBTS(current.getRight(), search);
+								}
+							}else if(search.compareTo(current)<0){
+								if(current.getRight()!=null) {
+									return searchInBTS(current.getRight(), search);
+								}else {
+									return searchInBTS(current.getLeft(), search);
+								}
+							}else {
+								return current;
+							}
+						}
+						return current;
+					}
+					/**
+					 *this method return a list with all the elements of the binary search tree
+					 *@return a list with all the object type Product of the binary search tree
+					 */
+					public void preorder(){
+						billsToShow = (ArrayList<Bill>) preorder(billsRoot);  
+					}
+					 
+					/**
+					 *this recursive method return one list type Product
+					 *@param the current object Product of the binary search tree. current  != null
+					 *@return a return a list with all the object type Product of the binary search tree 
+					 */
+					private List<Bill> preorder(Bill current){
+						List<Bill> lis= new ArrayList<Bill>();
+						if(current != null){
+//							System.out.println("off");
+							
+							lis.add(current);
+							List<Bill> lis2 = preorder(current.getLeft());
+							List<Bill> lis3 = preorder(current.getRight());
+							lis.addAll(lis2);
+							lis.addAll(lis3);
+						}
+						return lis;
+					}
+					/**
+					 * this method sort by code the list of bills
+					 * <b>post:</b>the list of bills was sorted by code </br>  
+					 */
+					public void sortBillsByCode() {
+						Bill temp;
+						for(int i=1;i < billsToShow.size();i++){
+							for (int j=0 ; j < billsToShow.size()- 1; j++){
+								if (billsToShow.get(j).getCode().compareTo(billsToShow.get(j+1).getCode())>0){
+									temp = billsToShow.get(j);
+									billsToShow.set(j, billsToShow.get(j+1));
+									billsToShow.set(j+1, temp);
+								}
+							}
+						}
+					}
+					/**
+					 * this method sort by price the list of bills
+					 * <b>post:</b>the list of bills was sorted by price </br>  
+					 */
+					public void sortBillsByPrice(){
+						int n = billsToShow.size();
+						for (int i = 0; i <= n; i++) {
+							for (int j = 0; j < n - i - 1; j++){
+								if (billsToShow.get(j+1).getCost()<billsToShow.get(j).getCost()){
+									Bill temp = billsToShow.get(j); 
+									billsToShow.set(j,billsToShow.get(j+1));
+									billsToShow.set(j+1,temp);
+								}
+							}
+						}	
+					}
+					/**
+					 * this method find a product by name 
+					 * @param the name of the product search. name != null
+					 * @return a int with the position of the object
+					 */
+					public int searchingBillByCode(String code) throws NotFoundException {
+						int posFind = -1;
+						boolean found = false;
+						for(int i = 0; i<billsToShow.size() && found == false; i++) {
+							if(billsToShow.get(i).getCode().equals(code)) {
+								found = true;
+								posFind = i;
+								}
+						}if(posFind == -1) {
+							throw new NotFoundException();
+						}
+						return posFind;
+					}
+					
+					public void newProduct(Distributor newOne){
+						Distributor current = firstDistributor;
+						newOne.fill();
+						boolean flag = true;
+						while(current != null && flag){
+							if(current.getCode().equals(newOne.getCode())){
+								if(current.getNext() == null){
+									newOne.setPrevious(current.getPrevious());
+									current.getPrevious().setNext(newOne);
+								}else if(current.getPrevious() == null) {
+									Distributor temp = current.getNext();
+									current = newOne;
+									temp.setPrevious(current);
+									current.setNext(temp);
+								}
+								else{
+									Distributor temp = current.getNext(); 
+									newOne.setPrevious(current.getPrevious());
+									current.getPrevious().setNext(newOne);
+									temp.setPrevious(newOne);
+									newOne.setNext(temp);
+								}
+								flag = false;
+							}
+							current = current.getNext();
+						}
+						actualInventory();
+					}
+					//metodos de prueba 
 					public void f() {
 						for (int i = 0; i < inventory.size(); i++) {
 							System.out.println(inventory.get(i).getName());
 						}
 					}
-				
+
+					public ArrayList<Bill> getBillsToShow() {
+						return billsToShow;
+					}
+
+					public void setBillsToShow(ArrayList<Bill> billsToShow) {
+						this.billsToShow = billsToShow;
+					}
+
+					
 }

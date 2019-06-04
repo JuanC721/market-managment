@@ -1,6 +1,8 @@
 package model;
 
-public enum Category {
+import java.io.Serializable;
+
+public enum Category implements Serializable{
 	LecheYDerivados("LecheYDerivados"),
 	PatatasYLegumbres("PatatasYLegumbres"),
 	GrasasYAceites("GrasasYAceites"), Bebidas("Bebidas"),

@@ -1,6 +1,8 @@
 package model;
 
-public class Costumer {		
+import java.io.Serializable;
+
+public class Costumer implements Serializable{		
 		//Associations
 			/**
 	 		*this attribute contains previous Costumer in the liked list
@@ -23,22 +25,27 @@ public class Costumer {
 			/**
 			 *this attribute contains the phone of the costumer
 			 */
-			private int phone;
+			private String phone;
 			/**
 			 *this attribute contains the address of the costumer
 			 */
 			private String addres;
+			//nuevo attributo
+			/**
+			 * this attribute contains the points of the costumer
+			 */
+			private int points;
 		
 		//Methods
 			//Builder
 				/**
-				*This is the constructor of the Costumer cla	ss
+				*This is the constructor of the Costumer class
 				*@param the name of the costumer. name != null
 				*@param the code of the costumer. id != null
 				*@param the phone of the costumer. phone != null
 				*@param the address of the costumer. addres != null
 				*/
-				public Costumer(String name, String id, int phone, String addres) {
+				public Costumer(String name, String id, String phone, String addres){
 					this.name = name;
 					this.id = id;
 					this.phone = phone;
@@ -79,7 +86,7 @@ public class Costumer {
 				 * this method allows get the costumer phone 
 				 * @return the phone attribute of the class
 				 */
-				public int getPhone() {
+				public String getPhone() {
 					return phone;
 				}
 				/**
@@ -105,5 +112,18 @@ public class Costumer {
 				 */
 				public void setNext(Costumer next) {
 					this.next = next;
+				}
+
+				//métodos nuevos
+				public int getPoints() {
+					return points;
+				}
+
+				public void setPoints(int points) {
+					this.points = points;
+				}
+				
+				public void actualPoints(int totalCost){
+					points += (totalCost/500);
 				}
 }

@@ -1,6 +1,8 @@
 package model;
 
-public class Product implements Comparable<Product>{
+import java.io.Serializable;
+
+public class Product implements Comparable<Product>, Serializable{
 	//Associations
 			
 			private Category category;

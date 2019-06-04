@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import customException.NotFoundException;
 
-public class Distributor{
+public class Distributor implements Serializable{
 	
 			
 	//Associations
@@ -401,6 +402,7 @@ public class Distributor{
 				 *this method allows fill the arrayList of productsToShow contained in the binary search tree
 				 */
 				public void fill() {
+					productsToShow.clear();
 					List<Product> ñ = preorder();
 					for(int i = 0; i<ñ.size();i++){
 						productsToShow.add(i,ñ.get(i));

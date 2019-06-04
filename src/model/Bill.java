@@ -1,7 +1,11 @@
 package model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-public class Bill implements Comparable<Bill>{
+import java.util.Random;
+
+import main.Main;
+public class Bill implements Comparable<Bill>, Serializable{
 	
 	//Associations
 			/**
@@ -16,6 +20,11 @@ public class Bill implements Comparable<Bill>{
 			** this attribute contains the left object in the binary search tree type Bill
 			**/
 			private Bill left;
+			//newAttribute
+			/**
+			 * 
+			 */
+			private String code;
 			/**
 			 ** this attribute contains a list with all the items bought
 			 **/
@@ -35,6 +44,7 @@ public class Bill implements Comparable<Bill>{
 			 **/
 			private double cost;
 		
+			private String[] infoCostumer;
 		
 		//Methods
 			//Builder
@@ -50,6 +60,7 @@ public class Bill implements Comparable<Bill>{
 					this.hourOfSale = hourOfSale;
 					this.minuteOfSale = minuteOfSale;
 					this.productsBought = new ArrayList<Product>();
+					this.code = geneCode();
 				}
 			
 			//Getters
@@ -71,7 +82,7 @@ public class Bill implements Comparable<Bill>{
 				 * this attribute contains the left object in the binary search tree type Product
 				 * @return the attribute left of the class
 				 */
-				public Bill getLeft() {
+				public Bill getLeft(){
 					return left;
 				}
 				/**
@@ -157,18 +168,14 @@ public class Bill implements Comparable<Bill>{
 				public int compareTo(Bill arg0) {
 					// TODO Auto-generated method stub
 					int resul = 0;
-					if(hourOfSale>arg0.getHourOfSale()) {
+					int codeArg = Integer.parseInt(arg0.getCode());
+					int thisCode = Integer.parseInt(code);
+					if(thisCode < codeArg) {
 						resul = 1;
-					}else if(hourOfSale<arg0.getHourOfSale()) {
+					}else if(thisCode>codeArg) {
 						resul = -1;
 					}else {
-						if(minuteOfSale>arg0.minuteOfSale) {
-							resul = 1;
-						}else if(minuteOfSale<arg0.minuteOfSale) {
-							resul = -1;
-						}else {
-							resul = 0;
-						}
+						resul = 0;
 					}
 					return resul;
 				}
@@ -183,7 +190,11 @@ public class Bill implements Comparable<Bill>{
 					for(int i = 0; i<productsBought.size();i++) {
 						products += i+1+". "+productsBought.get(i).getName()+"\n";
 					}
-					retu = "cost:"+cost+"products:\n"+products+"date of sale:"+dateOfSale.toString();
+					totalCost();
+					retu = "GRACIAS POR COMPRAR EN "+Main.getMarket().getMarketName()+"\n PRODUCTOS COMPRADOS: \n"+products+"\nTOTAL DE LA COMPRA:"+cost+"\nCODIGO DEL RECIBO:"+code+"\nFECHA DE LA COMPRA:"+dateOfSale.toString()+"\nINFORMACION DEL SUPER MERCADO EN CASO DE QUERER CONTACTAR\nTELEFONO:"+Main.getMarket().getPhone()+"\nCORREO:"+Main.getMarket().getemailAddress()+"\nGRACIAS POR SU COMPRA.VUELVA PRONTO";
+					if(infoCostumer!= null) {
+						retu = "GRACIAS POR COMPRAR EN "+Main.getMarket().getMarketName()+"señor "+infoCostumer[0]+" con cc:"+infoCostumer[1]+"\n PRODUCTOS COMPRADOS: \n"+products+"\nTOTAL DE LA COMPRA:"+cost+"\nCODIGO DEL RECIBO:"+code+"\nFECHA DE LA COMPRA:"+dateOfSale.toString()+"\nINFORMACION DEL SUPER MERCADO EN CASO DE QUERER CONTACTAR\nTELEFONO:"+Main.getMarket().getPhone()+"\nCORREO:"+Main.getMarket().getemailAddress()+"\nGRACIAS POR SU COMPRA.VUELVA PRONTO";
+					}
 					return retu;
 				}
 				/**
@@ -198,7 +209,6 @@ public class Bill implements Comparable<Bill>{
 					 cost= total;
 				 }
 				 //nuevo
-				 
 				 public void f(){
 					 for(int i = 0; i<productsBought.size();i++) {
 						 System.out.println(productsBought.get(i).getCode());
@@ -209,7 +219,38 @@ public class Bill implements Comparable<Bill>{
 				public void setProductsBought(ArrayList<Product> productsBought) {
 					this.productsBought = productsBought;
 				}
+
+				public String getCode() {
+					return code;
+				}
+
+				public void setCode(String code) {
+					this.code = code;
+				}
 				 
+				public String geneCode() {
+					String code = "";
+					int cont = 0;
+					Random x = new Random();
+					while(cont<5) {
+						int randomNum = x.nextInt(5);
+						if(randomNum == 0) {
+							randomNum++;
+						}
+						code += ""+randomNum;
+						cont++;
+					}
+					System.out.println(code);
+					return code;
+				}
+
+				public String[] getInfoCostumer() {
+					return infoCostumer;
+				}
+
+				public void setInfoCostumer(String infoCostumer) {
+					this.infoCostumer = infoCostumer.split(",");
+				}
 
 
 	

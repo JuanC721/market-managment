@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import customException.NotFoundException;
 import model.Bill;
 import model.Category;
+import model.Costumer;
 import model.Distributor;
 import model.Manager;
 import model.Market;
@@ -47,6 +48,16 @@ class MarketTest {
 		distributor2.addProduct(n);
 		distributor1.fill();
 		distributor2.fill();
+		Bill newBill = new Bill(new Date(), new Date().getHours(), new Date().getMinutes());
+		Bill newBill2 = new Bill(new Date(), new Date().getHours(), new Date().getMinutes());
+		Bill newBill3 = new Bill(new Date(), new Date().getHours(), new Date().getMinutes());
+		newBill.setCode("10");
+		newBill3.setCode("15");
+		newBill2.setCode("5");
+		
+		init.addBill(newBill);
+		init.addBill(newBill2);
+		init.addBill(newBill3);
 		init.addDistributor(distributor1);
 		init.addDistributor(distributor2);		
 		marketTest = init;
@@ -194,30 +205,77 @@ class MarketTest {
 		Product lop = marketTest.getInventory().get(lol);
 		assertEquals(8, lop.getQuantity());
 	}
-//	@Test
-//	void loadTxt() {
-//		setupScenary1();
-//		try {
-//			marketTest.generateDistributors("data\\distributors.txt", ",");
-//			Distributor disti = marketTest.searchingDistributorName("colombina");
-//			assertEquals("colombina", disti.getCompanyName());
-//			disti.fill();
-//			marketTest.actualInventory();	
-//			int pos = disti.searchingByCode(1234);
-//			Product x = disti.getProductsToShow().get(pos);
-//			assertEquals("bombombum", x.getName());
-//			assertEquals(1234, x.getCode());
-//		} catch (IOException | NotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	
+	//nuevos métodos
 	@Test
-	void x() throws IOException {
+	void loadTxt() {
 		setupScenary1();
-		marketTest.generateDistributors("data\\distributors.txt", ",");
-		marketTest.actualInventory();
-		marketTest.f();
+		try {
+			marketTest.generateDistributors("data\\distributors.txt", ",");
+			Distributor disti = marketTest.searchingDistributorName("colombina");
+			assertEquals("colombina", disti.getCompanyName());
+			disti.fill();
+			marketTest.actualInventory();	
+			int pos = disti.searchingByCode(1234);
+			Product x = disti.getProductsToShow().get(pos);
+			assertEquals("bombombum", x.getName());
+			assertEquals(1234, x.getCode());
+		} catch (IOException e) {
+			fail("the product is not added");
+			e.printStackTrace();
+		}catch(NotFoundException e){
+			fail("the file cant be add");
+			e.printStackTrace();
+		}
 	}
+	//TODO
+	@Test
+	void addDistributorTest() {
+		setupScenary1();
+		Distributor testOne = new Distributor("testDistributor", "A0004", "managerExampleTest", "23434233");
+		marketTest.addDistributor(testOne);
+		Distributor found;
+		try {
+			found = marketTest.searchingDistributorName("testDistributor");
+			assertEquals("testDistributor", found.getCompanyName(),"no es el buscado");
+		} catch (NotFoundException e) {
+			fail("el distribuidor no esta agregado en la lista");
+			e.printStackTrace();
+		}
+		
+	}
+	@Test 
+	void addCostumerAndSearchCostumerByIdtest(){
+		setupScenary1();
+		Costumer testOne = new Costumer("alberto", "9876382", "317802122", "laberto@hotmail.com");
+		marketTest.addCostumer(testOne);
+		try {
+			Costumer found = marketTest.searchingCostumerById("9876382");
+			assertEquals("9876382", found.getId(),"no es el buscado");
+		} catch (NotFoundException e) {
+			fail("el distribuidor no esta agregado en la lista");
+			e.printStackTrace();
+		}
+	}
+	@Test
+	void addBillAndSearchBillTest() {
+		setupScenary1();
+		assertEquals("10", marketTest.getBillsRoot().getCode());
+		assertEquals("5", marketTest.getBillsRoot().getLeft().getCode());
+		assertEquals("15", marketTest.getBillsRoot().getRight().getCode());
+
+	}
+	@Test
+	void searchBill() {
+		setupScenary1();
+		try {
+			Bill found = marketTest.searchInBTS("15");
+			assertEquals("15", found.getCode());
+		} catch (NotFoundException e) {
+			fail("error en la busqueda");
+			e.printStackTrace();
+		}
+	}
+	
 
 }

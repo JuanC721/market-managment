@@ -28,7 +28,18 @@ public class MenuAdministratorController {
 
     @FXML
     void openBillsWindow(ActionEvent event) {
-
+    	try{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(("Facturas.fxml")));
+			Parent root = (Parent) loader.load();
+			Scene scene = new Scene(root);
+			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.show();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -49,7 +60,18 @@ public class MenuAdministratorController {
 
     @FXML
     void openInventoryWindow(ActionEvent event) {
-    	
+    	try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(("Inventory.fxml")));
+			Parent root = (Parent) loader.load();
+			Scene scene = new Scene(root);
+			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.show();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
     }
 
 }

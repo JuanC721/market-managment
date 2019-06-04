@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.DistribuidoresController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="374.0" prefWidth="401.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.DistribuidoresController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="361.0" prefWidth="360.0">
+      <VBox alignment="TOP_CENTER" layoutY="-2.0" prefHeight="374.0" prefWidth="401.0">
          <children>
             <MenuBar prefHeight="8.0" prefWidth="360.0">
               <menus>
@@ -26,7 +24,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#sortDistributorsByCompany" text="Compañia" />
                      </items>
                 </Menu>
-                <Menu mnemonicParsing="false" onAction="#searchDistributor" text="Buscar" />
+                <Menu mnemonicParsing="false" text="Buscar">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#searchName" text="Nombre" />
+                        <MenuItem mnemonicParsing="false" onAction="#searchCode" text="Codigo" />
+                     </items></Menu>
               </menus>
             </MenuBar>
             <Label fx:id="lblProductsOf" text="Distribuidores">
@@ -34,18 +36,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <ScrollPane prefHeight="300.0" prefWidth="360.0">
-               <content>
-                  <TableView fx:id="listDistributors" prefHeight="277.0" prefWidth="359.0">
-                    <columns>
-                      <TableColumn prefWidth="69.0" text="Codigo" />
-                      <TableColumn prefWidth="112.0" text="Compañia" />
-                        <TableColumn prefWidth="99.0" text="Manager" />
-                        <TableColumn prefWidth="65.0" text="Telefono" />
-                    </columns>
-                  </TableView>
-               </content>
-            </ScrollPane>
+            <TableView fx:id="listDistributors" prefHeight="277.0" prefWidth="387.0" />
             <HBox alignment="CENTER" prefHeight="70.0" prefWidth="360.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#goBackAdministratorMenu" text="Regresar" />
@@ -53,6 +44,8 @@
                   <Button mnemonicParsing="false" onAction="#showDistributorSelectedProducts" text="Mostrar productos" />
                   <ImageView fitHeight="41.0" fitWidth="8.0" layoutX="128.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                   <Button mnemonicParsing="false" onAction="#addDistributor" text="Agregar Distribuidor" />
+                  <ImageView fitHeight="41.0" fitWidth="8.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button mnemonicParsing="false" onAction="#refresh" text="actualizar" />
                </children>
             </HBox>
          </children>
